@@ -18,4 +18,6 @@ storiesOf('Report', module)
   .add('Basic', () => <Report />);
 
 storiesOf('GoogleMap', module)
-  .add('Basic', () => <GoogleMap />);
+  .add('Basic', () => <GoogleMap
+    center={{lat: -34.397, lng: 150.644}}
+    zoom={8} />);
