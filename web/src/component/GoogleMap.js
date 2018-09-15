@@ -1,4 +1,6 @@
+import _ from 'lodash';
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import load from 'load-script';
 
@@ -35,11 +37,12 @@ class GoogleMap extends Component {
     }
 
     componentDidMount() {
-        const { apiKey, ...options } = this.props;
+        const { apiKey, onLoaded, ...options } = this.props;
 
         const initMap = () => {
             this.map = new window.google.maps.Map(this._mapRef.current, options);
             this.google = window.google;
+            _.invoke(this.props, 'onLoaded');
         }
 
         if (!window.google) {
@@ -57,6 +60,10 @@ class GoogleMap extends Component {
                 <Content innerRef={this._mapRef} />
             </Wrapper>);
     }
+}
+
+GoogleMap.propTypes = {
+    onLoaded: PropTypes.func
 }
 
 export default GoogleMap;
