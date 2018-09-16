@@ -8,6 +8,7 @@ import Explore from '../component/Explore';
 import Report from '../component/Report';
 import GoogleMap from '../component/GoogleMap';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
+import PlacePickerCard from '../component/PlacePickerCard';
 
 
 storiesOf('Intro', module)
@@ -29,3 +30,12 @@ storiesOf('GoogleMapPlacePicker', module)
     onPickPlace={action('onPickPlace')}
     center={{ lat: -34.397, lng: 150.644 }}
     zoom={8} />)
+
+storiesOf('PlacePickerCard', module)
+  .add('Basic', () => <PlacePickerCard
+    title="PlacePickerCard"
+    description="Please select a place."
+    onPickPlace={action('onPickPlace')}
+    center={{ lat: -34.397, lng: 150.644 }}
+    zoom={8}
+  />)
