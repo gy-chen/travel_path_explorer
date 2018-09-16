@@ -4,7 +4,6 @@ import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 
 import Intro from '../component/Intro';
-import Explore from '../component/Explore';
 import Report from '../component/Report';
 import GoogleMap from '../component/GoogleMap';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
@@ -14,9 +13,6 @@ import DirectionSelectWizard from '../component/DirectionSelectWizard';
 
 storiesOf('Intro', module)
   .add('Basic', () => <Intro />);
-
-storiesOf('Explore', module)
-  .add('Basic', () => <Explore />);
 
 storiesOf('Report', module)
   .add('Basic', () => <Report />);
