@@ -9,6 +9,7 @@ import Report from '../component/Report';
 import GoogleMap from '../component/GoogleMap';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
 import PlacePickerCard from '../component/PlacePickerCard';
+import DirectionSelectWizard from '../component/DirectionSelectWizard';
 
 
 storiesOf('Intro', module)
@@ -39,3 +40,10 @@ storiesOf('PlacePickerCard', module)
     center={{ lat: -34.397, lng: 150.644 }}
     zoom={8}
   />)
+
+storiesOf('DirectionSelectWizard', module)
+  .add('Basic', () => <DirectionSelectWizard
+    center={{ lat: -34.397, lng: 150.644 }}
+    zoom={8}
+    onDirectionSelected={action('onDirectionSelected')}
+  />);
