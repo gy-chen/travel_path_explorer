@@ -9,13 +9,22 @@ import GoogleMap from '../component/GoogleMap';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
 import PlacePickerCard from '../component/PlacePickerCard';
 import DirectionSelectWizard from '../component/DirectionSelectWizard';
+import Step from '../component/Step';
+import Parking from '../component/Parking';
+
+import { withRouteData } from './moc/withRouteData';
 
 
 storiesOf('Intro', module)
   .add('Basic', () => <Intro />);
 
 storiesOf('Report', module)
-  .add('Basic', () => <Report />);
+  .add('Basic', () => {
+
+    const ReportWithData = withRouteData(Report);
+
+    return (<ReportWithData />);
+  });
 
 storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
@@ -43,3 +52,27 @@ storiesOf('DirectionSelectWizard', module)
     zoom={8}
     onDirectionSelected={action('onDirectionSelected')}
   />);
+
+storiesOf('Step', module)
+  .add('Basic', () => {
+    
+    const StepWithData = withRouteData(props => {
+      const { steps } = props;
+
+      return (<Step {...steps[0]} />);
+    });
+
+    return (<StepWithData />);
+  });
+
+storiesOf('Parking', module)
+  .add('Basic', () => {
+
+    const ParkingWithData = withRouteData(props => {
+      const { parkings } = props;
+
+      return (<Parking {...parkings[0]} />)
+    });
+
+    return (<ParkingWithData />);
+  });
