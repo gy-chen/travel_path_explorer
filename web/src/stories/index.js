@@ -11,6 +11,7 @@ import PlacePickerCard from '../component/PlacePickerCard';
 import DirectionSelectWizard from '../component/DirectionSelectWizard';
 import Step from '../component/Step';
 import Parking from '../component/Parking';
+import GoogleStaticMap from '../component/GoogleStaticMap';
 
 import { withRouteData } from './moc/withRouteData';
 
@@ -55,7 +56,7 @@ storiesOf('DirectionSelectWizard', module)
 
 storiesOf('Step', module)
   .add('Basic', () => {
-    
+
     const StepWithData = withRouteData(props => {
       const { steps } = props;
 
@@ -76,3 +77,9 @@ storiesOf('Parking', module)
 
     return (<ParkingWithData />);
   });
+
+storiesOf('GoogleStaticMap', module)
+  .add('Basic', () => <GoogleStaticMap
+    path="knirCqpr_V?uA@a@BaAEcBiAoDSo@a@oAIQEQI_@o@RwAV}AV_@Jg@@eEGeDEeCCAT{AE}@CeCKU`IUxGCf@`@H"
+    key={process.env.STORYBOOK_GMAPS_API_KEY}
+  />);
