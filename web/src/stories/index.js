@@ -79,7 +79,11 @@ storiesOf('Parking', module)
   });
 
 storiesOf('GoogleStaticMap', module)
-  .add('Basic', () => <GoogleStaticMap
+  .add('Path', () => <GoogleStaticMap
     path="knirCqpr_V?uA@a@BaAEcBiAoDSo@a@oAIQEQI_@o@RwAV}AV_@Jg@@eEGeDEeCCAT{AE}@CeCKU`IUxGCf@`@H"
-    key={process.env.STORYBOOK_GMAPS_API_KEY}
+    key_={process.env.STORYBOOK_GMAPS_API_KEY}
+  />)
+  .add('Center', () => <GoogleStaticMap 
+    center={{"lat": 24.138877, "lng": 120.6895124}}
+    key_={process.env.STORYBOOK_GMAPS_API_KEY}
   />);
