@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
+import GoogleStaticMap from './GoogleStaticMap';
 import Step from './Step';
 import Parking from './Parking';
 
@@ -22,8 +23,7 @@ const Report = (props) => {
     return (
         <Wrapper>
             <h2>Overview</h2>
-            <p>Display static map with polyline here</p>
-            <p>{overview.polyline.points}</p>
+            <GoogleStaticMap path={overview.polyline.points} />
             <h2>Steps</h2>
             {steps.map(step => (<Step {...step} />))}
             <h2>Parkings</h2>
