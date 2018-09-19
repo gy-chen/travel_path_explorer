@@ -81,7 +81,11 @@ storiesOf('Parking', module)
     const ParkingWithData = withRouteData(props => {
       const { parkings } = props;
 
-      return (<Parking {...parkings[0]} />)
+      return (
+        <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+          <Parking {...parkings[0]} />
+        </GoogleStaticMapKeyContext.Provider>
+      );
     });
 
     return (<ParkingWithData />);
