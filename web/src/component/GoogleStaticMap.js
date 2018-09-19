@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
+import GoogleStaticMapKeyContext from './GoogleStaticMapKeyContext';
 
 const GOOGLE_STATIC_MAP_API = 'https://maps.googleapis.com/maps/api/staticmap?';
 
@@ -39,4 +40,20 @@ GoogleStaticMap.defaultProps = {
     zoom: 16
 }
 
-export default GoogleStaticMap;
+const withGoogleStaticMapKey = Component => {
+
+    const WithGoogleStaticMapKey = props => {
+
+        return (
+            <GoogleStaticMapKeyContext.Consumer>
+                {key_ => (
+                    <Component key_={key_} {...props} />
+                )}
+            </GoogleStaticMapKeyContext.Consumer>
+        )
+    };
+
+    return WithGoogleStaticMapKey;
+}
+
+export default withGoogleStaticMapKey(GoogleStaticMap);

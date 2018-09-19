@@ -12,6 +12,7 @@ import DirectionSelectWizard from '../component/DirectionSelectWizard';
 import Step from '../component/Step';
 import Parking from '../component/Parking';
 import GoogleStaticMap from '../component/GoogleStaticMap';
+import GoogleStaticMapKeyContext from '../component/GoogleStaticMapKeyContext';
 
 import { withRouteData } from './moc/withRouteData';
 
@@ -24,7 +25,11 @@ storiesOf('Report', module)
 
     const ReportWithData = withRouteData(Report);
 
-    return (<ReportWithData />);
+    return (
+      <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+        <ReportWithData />
+      </GoogleStaticMapKeyContext.Provider>
+    );
   });
 
 storiesOf('GoogleMap', module)
@@ -63,7 +68,11 @@ storiesOf('Step', module)
       return (<Step {...steps[0]} />);
     });
 
-    return (<StepWithData />);
+    return (
+      <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+        <StepWithData />
+      </GoogleStaticMapKeyContext.Provider>
+    );
   });
 
 storiesOf('Parking', module)
@@ -79,11 +88,17 @@ storiesOf('Parking', module)
   });
 
 storiesOf('GoogleStaticMap', module)
-  .add('Path', () => <GoogleStaticMap
-    path="knirCqpr_V?uA@a@BaAEcBiAoDSo@a@oAIQEQI_@o@RwAV}AV_@Jg@@eEGeDEeCCAT{AE}@CeCKU`IUxGCf@`@H"
-    key_={process.env.STORYBOOK_GMAPS_API_KEY}
-  />)
-  .add('Center', () => <GoogleStaticMap 
-    center={{"lat": 24.138877, "lng": 120.6895124}}
-    key_={process.env.STORYBOOK_GMAPS_API_KEY}
-  />);
+  .add('Path', () => (
+    <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+      <GoogleStaticMap
+        path="knirCqpr_V?uA@a@BaAEcBiAoDSo@a@oAIQEQI_@o@RwAV}AV_@Jg@@eEGeDEeCCAT{AE}@CeCKU`IUxGCf@`@H"
+      />
+    </GoogleStaticMapKeyContext.Provider>)
+  )
+  .add('Center', () => (
+    <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+      <GoogleStaticMap
+        center={{ "lat": 24.138877, "lng": 120.6895124 }}
+      />
+    </GoogleStaticMapKeyContext.Provider>)
+  );
