@@ -35,7 +35,7 @@ const Step = props => {
         <Wrapper>
             <Instruction dangerouslySetInnerHTML={{ __html: html_instructions }} />
             <Distance>{distance}</Distance>
-            <GoogleStaticMap center={location} path={overview_polyline} zoom={17} />
+            <GoogleStaticMap center={location} path={overview_polyline} markers={[location]} zoom={17} />
             <Base64Image content={image} />
         </Wrapper>
     );

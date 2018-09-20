@@ -1,3 +1,4 @@
+import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
 import qs from 'qs';
@@ -5,8 +6,16 @@ import GoogleStaticMapKeyContext from './GoogleStaticMapKeyContext';
 
 const GOOGLE_STATIC_MAP_API = 'https://maps.googleapis.com/maps/api/staticmap?';
 
+// TODO support mark style
+const toMarkersQueryString = markers => {
+    const markersQueryString = _.chain(markers)
+        .map(marker => `${marker.lat},${marker.lng}`)
+        .join('|');
+    return `|${markersQueryString}`;
+}
+
 const GoogleStaticMap = props => {
-    const { size, zoom, center, path, key_ } = props;
+    const { size, zoom, center, path, key_, markers } = props;
 
     const params = { size, zoom, key: key_ };
 
@@ -15,6 +24,9 @@ const GoogleStaticMap = props => {
     }
     if (center) {
         params['center'] = `${center['lat']},${center['lng']}`;
+    }
+    if (markers) {
+        params['markers'] = toMarkersQueryString(markers);
     }
 
     const src = GOOGLE_STATIC_MAP_API + qs.stringify(params);
@@ -32,6 +44,12 @@ GoogleStaticMap.propTypes = {
         lng: PropTypes.number
     }),
     zoom: PropTypes.number,
+    markers: PropTypes.arrayOf(PropTypes.shape({
+        position: PropTypes.shape({
+            lat: PropTypes.number,
+            lng: PropTypes.number
+        })
+    })),
     key_: PropTypes.string.isRequired
 }
 
