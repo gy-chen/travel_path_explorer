@@ -21,6 +21,7 @@ const Parking = props => {
         <Wrapper>
             <GoogleStaticMap
                 center={location}
+                zoom={16}
             />
             <Base64Image content={image} />
         </Wrapper>

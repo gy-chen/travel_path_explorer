@@ -8,13 +8,13 @@ const GOOGLE_STATIC_MAP_API = 'https://maps.googleapis.com/maps/api/staticmap?';
 const GoogleStaticMap = props => {
     const { size, zoom, center, path, key_ } = props;
 
-    const params = { size, key: key_ };
+    const params = { size, zoom, key: key_ };
 
     if (path) {
         params['path'] = `enc:${path}`;
-    } else if (center) {
+    }
+    if (center) {
         params['center'] = `${center['lat']},${center['lng']}`;
-        params['zoom'] = zoom;
     }
 
     const src = GOOGLE_STATIC_MAP_API + qs.stringify(params);
@@ -36,8 +36,7 @@ GoogleStaticMap.propTypes = {
 }
 
 GoogleStaticMap.defaultProps = {
-    size: '400x300',
-    zoom: 16
+    size: '400x300'
 }
 
 const withGoogleStaticMapKey = Component => {

@@ -27,14 +27,15 @@ const Step = props => {
         html_instructions,
         distance,
         location,
-        image
+        image,
+        overview_polyline
     } = props;
 
     return (
         <Wrapper>
             <Instruction dangerouslySetInnerHTML={{ __html: html_instructions }} />
             <Distance>{distance}</Distance>
-            <GoogleStaticMap center={location} />
+            <GoogleStaticMap center={location} path={overview_polyline} zoom={17} />
             <Base64Image content={image} />
         </Wrapper>
     );
@@ -47,6 +48,7 @@ Step.propTypes = {
         lat: PropTypes.number,
         lng: PropTypes.number
     }),
+    overview_polyline: PropTypes.string,
     image: PropTypes.string
 }
 

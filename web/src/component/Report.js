@@ -25,7 +25,10 @@ const Report = (props) => {
             <h2>Overview</h2>
             <GoogleStaticMap path={overview.polyline.points} />
             <h2>Steps</h2>
-            {steps.map(step => (<Step {...step} />))}
+            {steps.map(step => (<Step
+                overview_polyline={overview.polyline.points}
+                {...step}
+            />))}
             <h2>Parkings</h2>
             {parkings.map(parking => (<Parking {...parking} />))}
         </Wrapper>
