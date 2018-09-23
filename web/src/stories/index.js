@@ -2,6 +2,10 @@ import React from 'react';
 
 import { storiesOf } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
+import styled from 'styled-components';
+import { createDevTools } from 'redux-devtools';
+import LogMonitor from 'redux-devtools-log-monitor';
+import { Provider } from 'react-redux';
 
 import Intro from '../component/Intro';
 import Report from '../component/Report';
@@ -14,6 +18,8 @@ import Step from '../component/Step';
 import Parking from '../component/Parking';
 import GoogleStaticMap from '../component/GoogleStaticMap';
 import GoogleStaticMapKeyContext from '../component/GoogleStaticMapKeyContext';
+import { configureStore } from '../store';
+import { route } from '../action';
 
 import { withRouteData } from './moc/withRouteData';
 
@@ -125,3 +131,51 @@ storiesOf('GoogleStaticMap', module)
       />
     </GoogleStaticMapKeyContext.Provider>)
   );
+
+storiesOf('Redux State', module)
+  .add('Basic', () => {
+    const DevTools = createDevTools(<LogMonitor />);
+
+    const store = configureStore(DevTools.instrument());
+
+    const Wrapper = styled.div`
+      display: flex;
+      flex-direction: row;
+      align-items: stretch;
+      height: 600px;
+    `;
+
+    const ButtonWrapper = styled.div`
+      display: flex;
+      flex-direction: column;
+    `;
+
+    const ReduxStateDemoWithRouteData = withRouteData(props => {
+
+      const { ...routeData } = props;
+
+      return (
+        <Provider store={store}>
+          <Wrapper>
+            <ButtonWrapper>
+              <button
+                onClick={() => store.dispatch(route.fetchRoute('Taichung Train Station', 'Taichung Park'))}>
+                Fetch Route Action
+              </button>
+              <button
+                onClick={() => store.dispatch(route.requestRoute())}>
+                Request Route Action
+              </button>
+              <button
+                onClick={() => store.dispatch(route.receiveRoute(routeData))}>
+                Receive Route Action
+              </button>
+            </ButtonWrapper>
+            <DevTools />
+          </Wrapper>
+        </Provider>
+      );
+    });
+
+    return (<ReduxStateDemoWithRouteData />);
+  });
