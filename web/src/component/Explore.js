@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+import DirectionSelectWizard from './DirectionSelectWizard';
+import Report from './Report';
+
+const Wrapper = styled.div`
+`;
 
 /**
  * Explore
@@ -10,9 +16,42 @@ import PropTypes from 'prop-types';
  */
 class Explore extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this._renderCurrentRoute = this._renderCurrentRoute.bind(this);
+        this._renderDirectionSelectWizard = this._renderDirectionSelectWizard.bind(this);
+    }
+
+    _renderCurrentRoute() {
+        const { currentRoute } = this.props;
+
+        if (currentRoute) {
+            return (<Report {...currentRoute} />)
+        }
+        return null;
+    }
+
+    _renderDirectionSelectWizard() {
+        const { currentRoute, isFetching } = this.props;
+
+        if (!currentRoute) {
+            // TODO improve google map component to initialize with guessed center
+            return (<DirectionSelectWizard
+                center={{ lat: -34.397, lng: 150.644 }}
+                zoom={8}
+                isFetching={isFetching} />)
+        }
+        return null;
+    }
+
     render() {
+
         return (
-            <p>Explore</p>
+            <Wrapper>
+                {this._renderCurrentRoute()}
+                {this._renderDirectionSelectWizard()}
+            </Wrapper>
         );
     }
 }

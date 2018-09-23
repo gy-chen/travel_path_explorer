@@ -11,6 +11,8 @@ const NextButton = styled.button`
 const DoneButton = styled.button`
 `;
 
+const Loading = styled.p``;
+
 /**
  * DirectionSelectWizard
  * 
@@ -26,6 +28,7 @@ class DirectionSelectWizard extends Component {
     constructor(props) {
         super(props);
 
+        this._renderStepButton = this._renderStepButton.bind(this);
         this._renderSelectOriginStep = this._renderSelectOriginStep.bind(this);
         this._renderSelectOriginStepButton = this._renderSelectOriginStepButton.bind(this);
         this._onPickOrigin = this._onPickOrigin.bind(this);
@@ -49,9 +52,19 @@ class DirectionSelectWizard extends Component {
                 description="Please select origin."
                 onPickPlace={this._onPickOrigin}
                 {...options}>
-                {this._renderSelectOriginStepButton(next)}
+                {this._renderStepButton(() => this._renderSelectOriginStepButton(next))}
             </PlacePickerCard>
         );
+    }
+
+    _renderStepButton(render) {
+        const { isFetching } = this.props;
+
+        if (isFetching) {
+            return (<Loading>loading...</Loading>);
+        }
+
+        return render();
     }
 
     _renderSelectOriginStepButton(next) {
@@ -83,7 +96,7 @@ class DirectionSelectWizard extends Component {
                 description="Please select destination."
                 onPickPlace={this._onPickDestination}
                 {...options}>
-                {this._renderSelectDestinationStepButton()}
+                {this._renderStepButton(() => this._renderSelectDestinationStepButton())}
             </PlacePickerCard>
         );
     }
@@ -142,7 +155,8 @@ class DirectionSelectWizard extends Component {
 }
 
 DirectionSelectWizard.propTypes = {
-    onDirectionSelected: PropTypes.func
+    onDirectionSelected: PropTypes.func,
+    isFetching: PropTypes.bool
 }
 
 export default DirectionSelectWizard;

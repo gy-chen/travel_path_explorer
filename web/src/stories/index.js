@@ -34,7 +34,22 @@ storiesOf('Report', module)
   });
 
 storiesOf('Explore', module)
-  .add('Basic', () => <Explore />);
+  .add('Basic', () => <Explore />)
+  .add('isFetching', () => <Explore isFetching={true} />)
+  .add('Fetched', () => {
+    const ExploreWithRouteData = withRouteData(props => {
+      const { overview, steps, parkings } = props;
+
+      return (<Explore currentRoute={{ overview, steps, parkings }} />);
+    })
+
+    return (
+      <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+        <ExploreWithRouteData />
+      </GoogleStaticMapKeyContext.Provider>
+    );
+  });
+
 
 storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
