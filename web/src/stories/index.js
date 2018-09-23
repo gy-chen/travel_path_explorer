@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 
 import Intro from '../component/Intro';
 import Report from '../component/Report';
+import Explore from '../component/Explore';
 import GoogleMap from '../component/GoogleMap';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
 import PlacePickerCard from '../component/PlacePickerCard';
@@ -31,6 +32,9 @@ storiesOf('Report', module)
       </GoogleStaticMapKeyContext.Provider>
     );
   });
+
+storiesOf('Explore', module)
+  .add('Basic', () => <Explore />);
 
 storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
