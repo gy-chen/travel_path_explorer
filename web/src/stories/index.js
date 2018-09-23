@@ -20,6 +20,7 @@ import GoogleStaticMap from '../component/GoogleStaticMap';
 import GoogleStaticMapKeyContext from '../component/GoogleStaticMapKeyContext';
 import { configureStore } from '../store';
 import { route } from '../action';
+import ExploreContainer from '../container/Explore';
 
 import { withRouteData } from './moc/withRouteData';
 
@@ -53,6 +54,38 @@ storiesOf('Explore', module)
       <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
         <ExploreWithRouteData />
       </GoogleStaticMapKeyContext.Provider>
+    );
+  })
+  .add('Container', () => {
+    const DevTools = createDevTools(<LogMonitor />);
+
+    const Wrapper = styled.div`
+      position: absolute;
+      display: flex;
+      flex-direction: row;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+    `;
+
+    const Column = styled.div`
+      flex: 1;
+    `;
+
+    const store = configureStore(DevTools.instrument());
+
+    return (
+      <Provider store={store}>
+        <Wrapper>
+          <Column>
+            <ExploreContainer />
+          </Column>
+          <Column>
+            <DevTools />
+          </Column>
+        </Wrapper>
+      </Provider>
     );
   });
 
