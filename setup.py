@@ -9,5 +9,10 @@ setuptools.setup(
     author="GYCHEN",
     author_email="gy.chen@gms.nutc.edu.tw",
     packages=setuptools.find_packages(),
-    install_requires=install_requires
+    install_requires=install_requires,
+    entry_points={
+        'console_scripts': [
+            'tpe_generate_route=travel_path_explorer.script.generate_route:main',
+        ],
+    },
 )
