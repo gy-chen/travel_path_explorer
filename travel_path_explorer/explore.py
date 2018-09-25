@@ -78,7 +78,7 @@ def find_steps(origin, destination):
     steps = [{
         "html_instructions": step["html_instructions"],
         "distance": step["distance"]["text"],
-        "location": step.get("end_location", step.get("start_location")),
+        "location": step.get("start_location", step.get("end_location")),
         "image": find_image(step)
     } for step in directions_result['legs'][0]['steps']]
     return steps
