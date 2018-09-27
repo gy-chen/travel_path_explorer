@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "apisauce": "^0.16.0",
     "load-script": "^1.0.0",
     "react": "^16.5.1",
     "react-albus": "^2.0.0",
