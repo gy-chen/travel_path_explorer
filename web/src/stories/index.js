@@ -22,6 +22,8 @@ import { configureStore } from '../store';
 import { route } from '../action';
 import ExploreContainer from '../container/Explore';
 
+import { explore as exploreApi } from '../service';
+
 import { withRouteData } from './moc/withRouteData';
 
 
@@ -211,4 +213,76 @@ storiesOf('Redux State', module)
     });
 
     return (<ReduxStateDemoWithRouteData />);
+  });
+
+storiesOf('Service', module)
+  .add('Explore', () => {
+
+    const Wrapper = styled.div`
+    `;
+
+    const FormFieldWrapper = styled.div`
+    `;
+
+    const ApiResult = styled.pre`
+    `;
+
+    class ExploreStory extends React.Component {
+
+      constructor(props) {
+        super(props);
+
+        this.onExplore = this.onExplore.bind(this);
+
+        this.state = {
+          origin: '',
+          destination: '',
+          apiResult: ''
+        };
+      }
+
+      onExplore() {
+        exploreApi.findRoute(this.state.origin, this.state.destination)
+          .then(response => {
+            this.setState({
+              apiResult: JSON.stringify(response, null, 2)
+            });
+          });
+      }
+
+      render() {
+        return (
+          <Wrapper>
+            <FormFieldWrapper>
+              <label>
+                Origin:
+                <input
+                  type="text"
+                  onChange={evt => this.setState({ origin: evt.target.value })}
+                  value={this.state.origin}
+                />
+              </label>
+            </FormFieldWrapper>
+            <FormFieldWrapper>
+              <label>
+                Destination:
+                <input
+                  type="text"
+                  onChange={evt => this.setState({ destination: evt.target.value })}
+                  value={this.state.destination}
+                />
+              </label>
+            </FormFieldWrapper>
+            <FormFieldWrapper>
+              <button onClick={this.onExplore}>Explore</button>
+            </FormFieldWrapper>
+            <ApiResult>
+              {this.state.apiResult}
+            </ApiResult>
+          </Wrapper>
+        );
+      }
+    }
+
+    return (<ExploreStory />);
   });
