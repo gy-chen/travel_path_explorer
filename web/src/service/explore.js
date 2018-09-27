@@ -13,7 +13,7 @@ export const findRoute = (origin, destination) => {
 /**
  * Convert location parameter to string format that api accept
  * 
- * if location is object, convert to `${location.lng},${location.lat}`.
+ * if location is object, convert to `${location.lat},${location.lng}`.
  * 
  * if location is string, do nothing.
  * 
@@ -21,7 +21,7 @@ export const findRoute = (origin, destination) => {
  */
 export const formatLocation = location => {
     if (typeof location === 'object') {
-        return `${location.lng},${location.lat}`;
+        return `${location.lat},${location.lng}`;
     }
     return location;
 };
