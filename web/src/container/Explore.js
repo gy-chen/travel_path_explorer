@@ -3,6 +3,7 @@ import Explore from '../component/Explore';
 import { route } from '../action';
 
 const mapStateToProps = state => ({
+    currentError: state.route.currentError,
     currentRoute: state.route.currentRoute,
     isFetching: state.route.isFetching
 });

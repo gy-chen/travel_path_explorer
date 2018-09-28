@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DirectionSelectWizard from './DirectionSelectWizard';
 import Report from './Report';
+import Error from './Error';
 
 const Wrapper = styled.div`
 `;
@@ -21,6 +22,7 @@ class Explore extends Component {
 
         this._renderCurrentRoute = this._renderCurrentRoute.bind(this);
         this._renderDirectionSelectWizard = this._renderDirectionSelectWizard.bind(this);
+        this._renderError = this._renderError.bind(this);
     }
 
     _renderCurrentRoute() {
@@ -46,12 +48,21 @@ class Explore extends Component {
         return null;
     }
 
+    _renderError() {
+        const { currentError } = this.props;
+        if (currentError) {
+            return (<Error errorCode={currentError} />);
+        }
+        return null;
+    }
+
     render() {
 
         return (
             <Wrapper>
                 {this._renderCurrentRoute()}
                 {this._renderDirectionSelectWizard()}
+                {this._renderError()}
             </Wrapper>
         );
     }
@@ -82,6 +93,7 @@ Explore.propTypes = {
             image: PropTypes.string
         }))
     }),
+    currentError: PropTypes.string,
     onDirectionSelected: PropTypes.func
 }
 
