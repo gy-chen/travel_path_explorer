@@ -11,6 +11,7 @@ import App from '../App';
 import Intro from '../component/Intro';
 import Report from '../component/Report';
 import Explore from '../component/Explore';
+import Error from '../component/Error';
 import GoogleMap from '../component/GoogleMap';
 import GoogleMapKeyContext from '../component/GoogleMapKeyContext';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
@@ -108,6 +109,9 @@ storiesOf('Explore', module)
     );
   });
 
+storiesOf('Error', module)
+  .add('Unavailable', () => <Error errorCode={exploreApi.STATUS_CODE.UNAVAILABLE} />)
+  .add('Not found', () => <Error errorCode={exploreApi.STATUS_CODE.NOT_FOUND} />);
 
 storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
