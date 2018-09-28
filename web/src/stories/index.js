@@ -7,6 +7,7 @@ import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import { Provider } from 'react-redux';
 
+import App from '../App';
 import Intro from '../component/Intro';
 import Report from '../component/Report';
 import Explore from '../component/Explore';
@@ -26,6 +27,9 @@ import { explore as exploreApi } from '../service';
 
 import { withRouteData } from './moc/withRouteData';
 
+
+storiesOf('App', module)
+  .add('Basic', () => <App />);
 
 storiesOf('Intro', module)
   .add('Basic', () => <Intro />);
