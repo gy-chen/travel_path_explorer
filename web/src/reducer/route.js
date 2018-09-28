@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { ROUTE_REQUEST, ROUTE_RECEIVE } from '../action/route';
+import { ROUTE_REQUEST, ROUTE_RECEIVE, ERROR_RECEIVE, ROUTE_FETCH } from '../action/route';
 
 export const currentRouteReducer = (state = null, action) => {
     switch (action.type) {
@@ -17,13 +17,26 @@ export const isFetchReducer = (state = false, action) => {
         case ROUTE_REQUEST:
             return true;
         case ROUTE_RECEIVE:
+        case ERROR_RECEIVE:
             return false;
         default:
             return state;
     }
 }
 
+export const currentErrorReducer = (state = null, action) => {
+    switch (action.type) {
+        case ROUTE_REQUEST:
+            return null;
+        case ERROR_RECEIVE:
+            return action.error;
+        default:
+            return state;
+    }
+};
+
 export default combineReducers({
+    currentError: currentErrorReducer,
     currentRoute: currentRouteReducer,
     isFetching: isFetchReducer
 })

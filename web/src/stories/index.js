@@ -222,6 +222,9 @@ storiesOf('Redux State', module)
                 onClick={() => store.dispatch(route.receiveRoute(routeData))}>
                 Receive Route Action
               </button>
+              <button onClick={() => store.dispatch(route.receiveError('NOT_FOUND'))}>
+                Receive Error Action
+              </button>
             </ButtonWrapper>
             <DevTools />
           </Wrapper>
