@@ -70,13 +70,13 @@ GoogleMap.propTypes = {
 
 export const withGoogleMapKeyContext = Component => {
 
-    const WithGoogleMapKeyContext = props => {
+    const WithGoogleMapKeyContext = React.forwardRef((props, ref) => {
         return (
             <GoogleMapKeyContext.Consumer>
-                {key_ => <Component apiKey={key_} {...props} />}
+                {key_ => <Component ref={ref} apiKey={key_} {...props} />}
             </GoogleMapKeyContext.Consumer>
         )
-    }
+    });
 
     return WithGoogleMapKeyContext;
 };
