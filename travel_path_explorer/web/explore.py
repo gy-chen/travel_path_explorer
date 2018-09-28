@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
-from googlemaps.exceptions import ApiError
 from ..explore import find_route
 from ..helper import convert_route_images_to_base64
+from ..exception import *
 
 explore_bp = Blueprint("explore", __name__)
 
@@ -21,7 +21,9 @@ def explore():
         convert_route_images_to_base64(route)
         result["status"] = "OK"
         result["route"] = route
-    except ApiError:
+    except NotFoundError:
         result["status"] = "NOT_FOUND"
+    except (TransportError, ApiError):
+        result["status"] = "UNAVAILABLE"
 
     return jsonify(result)

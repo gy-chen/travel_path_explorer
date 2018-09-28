@@ -1,9 +1,11 @@
 try:
     from .gmaps import gmaps
     from .helper import calculate_heading
+    from .exception import NotFoundError
 except ModuleNotFoundError:
     from gmaps import gmaps
     from helper import calculate_heading
+    from exception import NotFoundError
 
 
 def find_route(origin, destination):
@@ -50,7 +52,7 @@ def find_overview(origin, destination):
     """
     directions_result = gmaps.directions(origin, destination)
     if not directions_result:
-        raise ValueError("Cannot find directions")
+        raise NotFoundError()
     directions_result = directions_result[0]
     overview = {
         'polyline': directions_result['overview_polyline']
@@ -73,7 +75,7 @@ def find_steps(origin, destination):
     """
     directions_result = gmaps.directions(origin, destination)
     if not directions_result:
-        raise ValueError("Cannot find directions")
+        raise NotFoundError()
     directions_result = directions_result[0]
     steps = [{
         "html_instructions": step["html_instructions"],
@@ -105,7 +107,8 @@ def find_parkings(destination):
     :param destination: dict that contains lat and lng data.
     :return: list that contains dict of parking info
     """
-    parkings = gmaps.places_nearby(destination, rank_by="distance", type="parking")
+    parkings = gmaps.places_nearby(
+        destination, rank_by="distance", type="parking")
 
     return [{
         'location': parking['geometry']['location'],
