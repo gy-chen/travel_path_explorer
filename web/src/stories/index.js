@@ -12,6 +12,7 @@ import Intro from '../component/Intro';
 import Report from '../component/Report';
 import Explore from '../component/Explore';
 import GoogleMap from '../component/GoogleMap';
+import GoogleMapKeyContext from '../component/GoogleMapKeyContext';
 import GoogleMapPlacePicker from '../component/GoogleMapPlacePicker';
 import PlacePickerCard from '../component/PlacePickerCard';
 import DirectionSelectWizard from '../component/DirectionSelectWizard';
@@ -35,7 +36,9 @@ storiesOf('App', module)
     return (
       <Provider store={store}>
         <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
-          <App />
+          <GoogleMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+            <App />
+          </GoogleMapKeyContext.Provider>
         </GoogleStaticMapKeyContext.Provider>
       </Provider>
     );

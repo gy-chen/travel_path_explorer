@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import load from 'load-script';
+import GoogleMapKeyContext from './GoogleMapKeyContext';
 
 const GOOGLE_MAP_API = 'https://maps.googleapis.com/maps/api/js';
 
@@ -63,7 +64,23 @@ class GoogleMap extends Component {
 }
 
 GoogleMap.propTypes = {
+    apiKey: PropTypes.string,
     onLoaded: PropTypes.func
 }
 
-export default GoogleMap;
+export const withGoogleMapKeyContext = Component => {
+
+    const WithGoogleMapKeyContext = props => {
+        return (
+            <GoogleMapKeyContext.Consumer>
+                {key_ => <Component apiKey={key_} {...props} />}
+            </GoogleMapKeyContext.Consumer>
+        )
+    }
+
+    return WithGoogleMapKeyContext;
+};
+
+export const GoogleMapWithContext = withGoogleMapKeyContext(GoogleMap);
+
+export default GoogleMapWithContext;
