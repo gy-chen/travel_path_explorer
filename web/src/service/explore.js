@@ -10,6 +10,12 @@ export const findRoute = (origin, destination) => {
     return api.get('/explore', { origin, destination });
 };
 
+export const STATUS_CODE = {
+    OK: 'OK',
+    UNAVAILABLE: 'UNAVAILABLE',
+    NOT_FOUND: 'NOT_FOUND'
+};
+
 /**
  * Convert location parameter to string format that api accept
  * 
