@@ -29,7 +29,17 @@ import { withRouteData } from './moc/withRouteData';
 
 
 storiesOf('App', module)
-  .add('Basic', () => <App />);
+  .add('Basic', () => {
+    const store = configureStore();
+
+    return (
+      <Provider store={store}>
+        <GoogleStaticMapKeyContext.Provider value={process.env.STORYBOOK_GMAPS_API_KEY}>
+          <App />
+        </GoogleStaticMapKeyContext.Provider>
+      </Provider>
+    );
+  });
 
 storiesOf('Intro', module)
   .add('Basic', () => <Intro />);
