@@ -6,6 +6,7 @@ from .explore import explore_bp
 
 def create_app():
     app = Flask(__name__)
+    app.config.from_object('travel_path_explorer.web.config.Config')
     CORS(app)
     db.init_app(app)
 
