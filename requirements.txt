@@ -2,3 +2,4 @@ python-dotenv
 googlemaps
 flask
 flask-cors
+Flask-SQLAlchemy
