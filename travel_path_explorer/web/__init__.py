@@ -1,6 +1,6 @@
 from flask import Flask
 from flask_cors import CORS
-from .model import db
+from .model import db, migrate
 from .explore import explore_bp
 
 
@@ -9,6 +9,7 @@ def create_app():
     app.config.from_object('travel_path_explorer.web.config.Config')
     CORS(app)
     db.init_app(app)
+    migrate.init_app(app)
 
     app.register_blueprint(explore_bp)
 

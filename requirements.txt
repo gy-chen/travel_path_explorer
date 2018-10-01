@@ -3,3 +3,4 @@ googlemaps
 flask
 flask-cors
 Flask-SQLAlchemy
+Flask-Migrate
