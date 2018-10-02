@@ -24,6 +24,7 @@ import GoogleStaticMapKeyContext from '../component/GoogleStaticMapKeyContext';
 import { configureStore } from '../store';
 import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
+import CenteredGoogleMap from '../container/CenteredGoogleMap';
 
 import { explore as exploreApi, geolocation as geolocationApi } from '../service';
 
@@ -116,7 +117,18 @@ storiesOf('Error', module)
 storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
     center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8} />);
+    zoom={8} />)
+  .add('Centered', () => {
+    const store = configureStore();
+
+    store.dispatch(currentGeolocation.fetchCurrentGeolocation());
+
+    return (
+      <Provider store={store}>
+        <CenteredGoogleMap zoom={8} />
+      </Provider>
+    );
+  });
 
 storiesOf('GoogleMapPlacePicker', module)
   .add('Basic', () => <GoogleMapPlacePicker

@@ -27,7 +27,7 @@ const Content = styled.div`
 `;
 
 
-class GoogleMap extends Component {
+export class GoogleMap extends Component {
 
     constructor(props) {
         super(props);
@@ -52,6 +52,13 @@ class GoogleMap extends Component {
             load(`${GOOGLE_MAP_API}?${apiKey ? `key=${apiKey}` : ''}&callback=initMap`);
         } else {
             initMap();
+        }
+    }
+
+    componentDidUpdate() {
+        const { apiKey, onLoaded, ...options } = this.props;
+        if (this.map) {
+            this.map.setOptions(options);
         }
     }
 
