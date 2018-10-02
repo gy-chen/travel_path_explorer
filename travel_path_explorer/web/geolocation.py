@@ -58,12 +58,14 @@ class GeoLocation:
         :return: { 'lat': ..., 'lng': ...}
         """
         ip = netaddr.IPNetwork(ip)
-        for geolocation in self.db.session.query(GeoLocationModel).all():
-            if ip in netaddr.IPNetwork(geolocation.network):
-                return {
-                    'lat': geolocation.lat,
-                    'lng': geolocation.lng
-                }
+        geolocation = self.db.session.query(GeoLocationModel).filter(GeoLocationModel.network_from <= ip.value,
+                                                                     ip.value < GeoLocationModel.network_to
+                                                                     ).one_or_none()
+        if geolocation is not None:
+            return {
+                'lat': geolocation.lat,
+                'lng': geolocation.lng
+            }
         else:
             return {
                 'lat': self.app.config['GEOLOCATION_DEFAULT_LATITUDE'],
