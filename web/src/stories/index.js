@@ -22,7 +22,7 @@ import Parking from '../component/Parking';
 import GoogleStaticMap from '../component/GoogleStaticMap';
 import GoogleStaticMapKeyContext from '../component/GoogleStaticMapKeyContext';
 import { configureStore } from '../store';
-import { route } from '../action';
+import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 
 import { explore as exploreApi } from '../service';
@@ -228,6 +228,9 @@ storiesOf('Redux State', module)
               </button>
               <button onClick={() => store.dispatch(route.receiveError('NOT_FOUND'))}>
                 Receive Error Action
+              </button>
+              <button onClick={() => store.dispatch(currentGeolocation.setCurrentGeolocation({ lat: 23, lng: 121 }))}>
+                Set Current Geolocation Acition
               </button>
             </ButtonWrapper>
             <DevTools />
