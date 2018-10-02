@@ -25,7 +25,7 @@ import { configureStore } from '../store';
 import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 
-import { explore as exploreApi } from '../service';
+import { explore as exploreApi, geolocation as geolocationApi } from '../service';
 
 import { withRouteData } from './moc/withRouteData';
 
@@ -229,6 +229,9 @@ storiesOf('Redux State', module)
               <button onClick={() => store.dispatch(route.receiveError('NOT_FOUND'))}>
                 Receive Error Action
               </button>
+              <button onClick={() => store.dispatch(currentGeolocation.fetchCurrentGeolocation())}>
+                Fetch Current Geolocation Action
+              </button>
               <button onClick={() => store.dispatch(currentGeolocation.setCurrentGeolocation({ lat: 23, lng: 121 }))}>
                 Set Current Geolocation Acition
               </button>
@@ -312,4 +315,40 @@ storiesOf('Service', module)
     }
 
     return (<ExploreStory />);
+  })
+  .add('Geolocation', () => {
+
+    class GeolocationStory extends React.Component {
+
+      constructor(props) {
+        super(props);
+
+        this.state = {
+          apiResult: ''
+        };
+
+        this._onGetCurrentGeolocationClick = this._onGetCurrentGeolocationClick.bind(this);
+      }
+
+      _onGetCurrentGeolocationClick() {
+        geolocationApi.getGeolocation().then(res => {
+          this.setState({
+            apiResult: JSON.stringify(res, null, 2)
+          });
+        });
+      }
+
+      render() {
+        return (
+          <div>
+            <button onClick={this._onGetCurrentGeolocationClick}>Get Current Geolocation</button>
+            <pre>
+              {this.state.apiResult}
+            </pre>
+          </div>
+        )
+      }
+    }
+
+    return <GeolocationStory />;
   });
