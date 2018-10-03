@@ -35,12 +35,11 @@ class Explore extends Component {
     }
 
     _renderDirectionSelectWizard() {
-        const { currentRoute, isFetching, onDirectionSelected } = this.props;
+        const { currentRoute, currentGeolocation, isFetching, onDirectionSelected } = this.props;
 
         if (!currentRoute) {
-            // TODO improve google map component to initialize with guessed center
             return (<DirectionSelectWizard
-                center={{ lat: -34.397, lng: 150.644 }}
+                center={currentGeolocation}
                 zoom={8}
                 isFetching={isFetching}
                 onDirectionSelected={onDirectionSelected} />)
@@ -92,6 +91,10 @@ Explore.propTypes = {
             }),
             image: PropTypes.string
         }))
+    }),
+    currentGeolocation: PropTypes.shape({
+        lat: PropTypes.number,
+        lng: PropTypes.numbers
     }),
     currentError: PropTypes.string,
     onDirectionSelected: PropTypes.func

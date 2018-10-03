@@ -5,6 +5,7 @@ import { route } from '../action';
 const mapStateToProps = state => ({
     currentError: state.route.currentError,
     currentRoute: state.route.currentRoute,
+    currentGeolocation: state.currentGeolocation,
     isFetching: state.route.isFetching
 });
 

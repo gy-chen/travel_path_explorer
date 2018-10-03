@@ -1,7 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { connect } from 'react-redux';
 import Explore from './container/Explore';
 import Intro from './component/Intro';
+import { currentGeolocation } from './action';
 
 /**
  * App
@@ -10,6 +12,13 @@ import Intro from './component/Intro';
  * 
  */
 class App extends Component {
+
+  componentDidMount() {
+    const { initialize } = this.props;
+
+    initialize();
+  }
+
   render() {
     return (
       <Router>
@@ -22,4 +31,8 @@ class App extends Component {
   }
 }
 
-export default App;
+const mapDispatchToProps = {
+  initialize: currentGeolocation.fetchCurrentGeolocation
+};
+
+export default connect(null, mapDispatchToProps)(App);
