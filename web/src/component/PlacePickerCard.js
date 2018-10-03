@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import GoogmeMapPlacePicker from './GoogleMapPlacePicker';
+import GoogleMapPlacePicker from './GoogleMapPlacePicker';
 
 const Card = styled.div`
 `;
@@ -30,7 +30,7 @@ class PlacePickerCard extends Component {
             <Card>
                 <Title>{title}</Title>
                 <Description>{description}</Description>
-                <GoogmeMapPlacePicker {...options} />
+                <GoogleMapPlacePicker {...options} />
                 {children}
             </Card>
         );
