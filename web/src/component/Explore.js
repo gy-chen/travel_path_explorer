@@ -39,7 +39,7 @@ class Explore extends Component {
         if (!currentRoute) {
             return (<DirectionSelectWizard
                 center={currentGeolocation}
-                zoom={8}
+                zoom={12}
                 isFetching={isFetching}
                 onDirectionSelected={onDirectionSelected}
                 enableSearchBox
