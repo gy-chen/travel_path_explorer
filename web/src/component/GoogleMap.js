@@ -42,7 +42,7 @@ export class GoogleMap extends Component {
         this.map = null;
         this.google = null;
         this._initSearchBox = this._initSearchBox.bind(this);
-        this._onSearchboxPlacesChanged = this._onSearchboxPlacesChanged.bind(this);
+        this._onSearchBoxPlacesChanged = this._onSearchBoxPlacesChanged.bind(this);
     }
 
     componentDidMount() {
@@ -73,11 +73,11 @@ export class GoogleMap extends Component {
 
     _initSearchBox() {
         this.searchBox = new this.google.maps.places.SearchBox(this._searchBoxRef.current);
-        this.searchBox.addListener('places_changed', this._onSearchboxPlacesChanged);
+        this.searchBox.addListener('places_changed', this._onSearchBoxPlacesChanged);
         this.map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(this._searchBoxRef.current);
     }
 
-    _onSearchboxPlacesChanged() {
+    _onSearchBoxPlacesChanged() {
         _.invoke(this.props, 'onSearchBoxPlacesChanged', this.searchBox.getPlaces());
     }
 
@@ -97,7 +97,7 @@ GoogleMap.propTypes = {
     apiKey: PropTypes.string,
     onLoaded: PropTypes.func,
     enableSearchBox: PropTypes.bool,
-    onSearchboxPlacesChanged: PropTypes.func
+    onSearcBoxPlacesChanged: PropTypes.func
 }
 
 export const withGoogleMapKeyContext = Component => {
