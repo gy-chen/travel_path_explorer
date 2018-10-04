@@ -26,15 +26,23 @@ const Content = styled.div`
     left: 0;
 `;
 
+const SearchBox = styled.input`
+    display: ${props => props.enableSearchBox ? 'inline-block' : 'none'};
+`;
+
 
 export class GoogleMap extends Component {
 
     constructor(props) {
         super(props);
 
+        this._searchBoxRef = React.createRef();
         this._mapRef = React.createRef();
+        this.searchBox = null;
         this.map = null;
         this.google = null;
+        this._initSearchBox = this._initSearchBox.bind(this);
+        this._onSearchboxPlacesChanged = this._onSearchboxPlacesChanged.bind(this);
     }
 
     componentDidMount() {
@@ -43,36 +51,53 @@ export class GoogleMap extends Component {
         const initMap = () => {
             this.map = new window.google.maps.Map(this._mapRef.current, options);
             this.google = window.google;
+            this._initSearchBox();
             _.invoke(this.props, 'onLoaded');
         }
 
         if (!window.google) {
             window.initMap = initMap;
 
-            load(`${GOOGLE_MAP_API}?${apiKey ? `key=${apiKey}` : ''}&callback=initMap`);
+            load(`${GOOGLE_MAP_API}?${apiKey ? `key=${apiKey}` : ''}&callback=initMap&libraries=places`);
         } else {
             initMap();
         }
     }
 
     componentDidUpdate() {
-        const { apiKey, onLoaded, ...options } = this.props;
+        const { ...options } = this.props;
         if (this.map) {
             this.map.setOptions(options);
         }
     }
 
+    _initSearchBox() {
+        this.searchBox = new this.google.maps.places.SearchBox(this._searchBoxRef.current);
+        this.searchBox.addListener('places_changed', this._onSearchboxPlacesChanged);
+        this.map.controls[window.google.maps.ControlPosition.TOP_LEFT].push(this._searchBoxRef.current);
+    }
+
+    _onSearchboxPlacesChanged() {
+        _.invoke(this.props, 'onSearchBoxPlacesChanged', this.searchBox.getPlaces());
+    }
+
     render() {
+        const { enableSearchBox } = this.props;
+
         return (
             <Wrapper>
+                <SearchBox type="text" innerRef={this._searchBoxRef} enableSearchBox={enableSearchBox} />
                 <Content innerRef={this._mapRef} />
             </Wrapper>);
     }
 }
 
+// TODO add mapOptions property to collection map options instead of speard map options into properties
 GoogleMap.propTypes = {
     apiKey: PropTypes.string,
-    onLoaded: PropTypes.func
+    onLoaded: PropTypes.func,
+    enableSearchBox: PropTypes.bool,
+    onSearchboxPlacesChanged: PropTypes.func
 }
 
 export const withGoogleMapKeyContext = Component => {

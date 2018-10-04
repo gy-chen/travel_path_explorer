@@ -118,6 +118,11 @@ storiesOf('GoogleMap', module)
   .add('Basic', () => <GoogleMap
     center={{ lat: -34.397, lng: 150.644 }}
     zoom={8} />)
+  .add('SearchBox', () => <GoogleMap
+    enableSearchBox
+    onSearchBoxPlacesChanged={action('onSearchBoxPlacesChanged')}
+    center={{ lat: -34.397, lng: 150.644 }}
+    zoom={8} />)
   .add('Centered', () => {
     const store = configureStore();
 
