@@ -37,6 +37,7 @@ class PlacePickerCard extends Component {
     }
 }
 
+// TODO add map options properties
 PlacePickerCard.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
