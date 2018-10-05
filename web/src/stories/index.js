@@ -6,6 +6,7 @@ import styled from 'styled-components';
 import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import { Provider } from 'react-redux';
+import { BrowserRouter as Router } from 'react-router-dom';
 
 import App from '../App';
 import Intro from '../component/Intro';
@@ -47,7 +48,11 @@ storiesOf('App', module)
   });
 
 storiesOf('Intro', module)
-  .add('Basic', () => <Intro />);
+  .add('Basic', () => (
+    <Router>
+      <Intro />
+    </Router>
+  ));
 
 storiesOf('Report', module)
   .add('Basic', () => {
