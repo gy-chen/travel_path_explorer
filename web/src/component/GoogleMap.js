@@ -64,9 +64,12 @@ export class GoogleMap extends Component {
         }
     }
 
-    componentDidUpdate() {
+    componentDidUpdate(prevProps) {
         const { ...options } = this.props;
-        if (this.map) {
+        const { ...prevOptions } = prevProps;
+
+        // TODO maybe need to pick up options for google map api only
+        if (this.map && !_.isEqual(options, prevOptions)) {
             this.map.setOptions(options);
         }
     }
