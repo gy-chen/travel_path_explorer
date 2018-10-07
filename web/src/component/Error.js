@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import { STATUS_CODE } from '../service/explore';
 
 export const ERROR_MESSAGE = {
     [STATUS_CODE.UNAVAILABLE]: 'Server unavailable now. Try again later.',
     [STATUS_CODE.NOT_FOUND]: 'No route found. Try different origin or destination'
 };
+
+const ErrorMessage = styled.p`
+    margin: 0;
+    color: #dc3545;
+`;
 
 /**
  * Error
@@ -16,7 +22,7 @@ export const ERROR_MESSAGE = {
 const Error = props => {
 
     return (
-        <p>{ERROR_MESSAGE[props.errorCode]}</p>
+        <ErrorMessage>{ERROR_MESSAGE[props.errorCode]}</ErrorMessage>
     );
 }
 
