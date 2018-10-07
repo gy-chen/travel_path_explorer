@@ -29,6 +29,10 @@ const NextButton = styled.button`
 
 const DoneButton = styled(NextButton)``;
 
+const ErrorWrapper = styled.div`
+    margin-top: .60rem;
+`;
+
 const Loading = styled.p``;
 
 
@@ -165,7 +169,11 @@ class DirectionSelectWizard extends Component {
     _renderError() {
         const { errorCode } = this.props;
         if (errorCode) {
-            return <Error errorCode={errorCode} />;
+            return (
+                <ErrorWrapper>
+                    <Error errorCode={errorCode} />
+                </ErrorWrapper>
+            );
         }
         return null;
     }
