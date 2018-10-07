@@ -5,6 +5,20 @@ import GoogleStaticMap from './GoogleStaticMap';
 import Base64Image from './Base64Image';
 
 const Wrapper = styled.div`
+    display: flex;
+    margin-left: 8px;
+    margin-right: 8px;
+    padding-top: .75rem;
+    padding-bottom: .75rem;
+    border-bottom: 1px solid #e0e0e0;
+`;
+
+const Column = styled.div`
+    flex: 0 0 50%;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 /**
@@ -19,12 +33,16 @@ const Parking = props => {
 
     return (
         <Wrapper>
-            <GoogleStaticMap
-                center={location}
-                markers={[location]}
-                zoom={16}
-            />
-            <Base64Image content={image} />
+            <Column>
+                <GoogleStaticMap
+                    center={location}
+                    markers={[location]}
+                    zoom={16}
+                />
+            </Column>
+            <Column>
+                <Base64Image content={image} />
+            </Column>
         </Wrapper>
     );
 };

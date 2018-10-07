@@ -1,10 +1,16 @@
 import _ from 'lodash';
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
 import qs from 'qs';
 import GoogleStaticMapKeyContext from './GoogleStaticMapKeyContext';
 
 const GOOGLE_STATIC_MAP_API = 'https://maps.googleapis.com/maps/api/staticmap?';
+
+const Image = styled.img`
+    max-width: 100%;
+    height: auto;
+`;
 
 // TODO support mark style
 const toMarkersQueryString = markers => {
@@ -32,7 +38,7 @@ const GoogleStaticMap = props => {
     const src = GOOGLE_STATIC_MAP_API + qs.stringify(params);
 
     return (
-        <img src={src} />
+        <Image src={src} />
     );
 }
 
@@ -54,7 +60,7 @@ GoogleStaticMap.propTypes = {
 }
 
 GoogleStaticMap.defaultProps = {
-    size: '400x300'
+    size: '320x300'
 }
 
 const withGoogleStaticMapKey = Component => {
