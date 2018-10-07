@@ -4,12 +4,22 @@ import styled from 'styled-components';
 import GoogleMapPlacePicker from './GoogleMapPlacePicker';
 
 const Card = styled.div`
+    padding: 1.25rem;
+    border: 1px solid rgba(0, 0, 0, .125);
 `;
 
 const Title = styled.h3`
+    padding: 0;
+    margin: 0;
+    margin-bottom: .75rem;
+    font-size: 1.25rem;
 `;
 
 const Description = styled.p`
+    padding: 0;
+    margin: 0;
+    margin-bottom: .60rem;
+    color: #212529;
 `;
 
 /**
