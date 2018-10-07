@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import DirectionSelectWizard from './DirectionSelectWizard';
 import Report from './Report';
-import Error from './Error';
 
 const Wrapper = styled.div`
 `;
@@ -22,7 +21,6 @@ class Explore extends Component {
 
         this._renderCurrentRoute = this._renderCurrentRoute.bind(this);
         this._renderDirectionSelectWizard = this._renderDirectionSelectWizard.bind(this);
-        this._renderError = this._renderError.bind(this);
     }
 
     _renderCurrentRoute() {
@@ -35,7 +33,7 @@ class Explore extends Component {
     }
 
     _renderDirectionSelectWizard() {
-        const { currentRoute, currentGeolocation, isFetching, onDirectionSelected, onSearchBoxPlacesChanged } = this.props;
+        const { currentRoute, currentGeolocation, isFetching, onDirectionSelected, onSearchBoxPlacesChanged, currentError } = this.props;
         if (!currentRoute) {
             return (<DirectionSelectWizard
                 center={currentGeolocation}
@@ -43,15 +41,8 @@ class Explore extends Component {
                 isFetching={isFetching}
                 onDirectionSelected={onDirectionSelected}
                 enableSearchBox
-                onSearchBoxPlacesChanged={onSearchBoxPlacesChanged} />)
-        }
-        return null;
-    }
-
-    _renderError() {
-        const { currentError } = this.props;
-        if (currentError) {
-            return (<Error errorCode={currentError} />);
+                onSearchBoxPlacesChanged={onSearchBoxPlacesChanged}
+                errorCode={currentError} />)
         }
         return null;
     }
@@ -62,7 +53,6 @@ class Explore extends Component {
             <Wrapper>
                 {this._renderCurrentRoute()}
                 {this._renderDirectionSelectWizard()}
-                {this._renderError()}
             </Wrapper>
         );
     }

@@ -69,6 +69,8 @@ storiesOf('Report', module)
 storiesOf('Explore', module)
   .add('Basic', () => <Explore />)
   .add('isFetching', () => <Explore isFetching={true} />)
+  .add('Error: Service Unavailable', () => <Explore currentError={exploreApi.STATUS_CODE.UNAVAILABLE} />)
+  .add('Error: Not Found', () => <Explore currentError={exploreApi.STATUS_CODE.NOT_FOUND} />)
   .add('Fetched', () => {
     const ExploreWithRouteData = withRouteData(props => {
       const { overview, steps, parkings } = props;
@@ -160,6 +162,16 @@ storiesOf('DirectionSelectWizard', module)
     center={{ lat: -34.397, lng: 150.644 }}
     zoom={8}
     onDirectionSelected={action('onDirectionSelected')}
+  />)
+  .add('Error: Service Unavailable', () => <DirectionSelectWizard
+    center={{ lat: -34.397, lng: 150.644 }}
+    zoom={8}
+    errorCode={exploreApi.STATUS_CODE.UNAVAILABLE}
+  />)
+  .add('Error: Not Found', () => <DirectionSelectWizard
+    center={{ lat: -34.397, lng: 150.644 }}
+    zoom={8}
+    errorCode={exploreApi.STATUS_CODE.NOT_FOUND}
   />);
 
 storiesOf('Step', module)

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Wizard, Steps, Step } from 'react-albus';
 import PlacePickerCard from './PlacePickerCard';
+import Error from './Error';
 
 const Wrapper = styled.div`
 
@@ -14,8 +15,11 @@ const Wrapper = styled.div`
     }
 `;
 
-const NextButton = styled.button`
+const StepAdditionalContentWrapper = styled.div`
     margin-top: .60rem;
+`;
+
+const NextButton = styled.button`
     padding: .375rem .75rem;
     background-color: transparent;
     font-size: 1rem;
@@ -51,6 +55,7 @@ class DirectionSelectWizard extends Component {
         this._renderSelectDestinationStepButton = this._renderSelectDestinationStepButton.bind(this);
         this._onPickDestination = this._onPickDestination.bind(this);
         this._onDoneSelection = this._onDoneSelection.bind(this);
+        this._renderError = this._renderError.bind(this);
 
         this.state = {
             selectedOrigin: null,
@@ -88,11 +93,14 @@ class DirectionSelectWizard extends Component {
         const isUserSelectedOrigin = !!selectedOrigin;
 
         return (
-            <NextButton
-                disabled={!isUserSelectedOrigin}
-                onClick={next}>
-                Next
-            </NextButton>
+            <StepAdditionalContentWrapper>
+                <NextButton
+                    disabled={!isUserSelectedOrigin}
+                    onClick={next}>
+                    Next
+                </NextButton>
+                {this._renderError()}
+            </StepAdditionalContentWrapper>
         );
     }
 
@@ -120,11 +128,14 @@ class DirectionSelectWizard extends Component {
         const isUserSelectedDestination = !!this.state.selectedDestination;
 
         return (
-            <DoneButton
-                disabled={!isUserSelectedDestination}
-                onClick={this._onDoneSelection}>
-                Done
-            </DoneButton>
+            <StepAdditionalContentWrapper>
+                <DoneButton
+                    disabled={!isUserSelectedDestination}
+                    onClick={this._onDoneSelection}>
+                    Done
+                </DoneButton>
+                {this._renderError()}
+            </StepAdditionalContentWrapper>
         );
     }
 
@@ -151,6 +162,14 @@ class DirectionSelectWizard extends Component {
         );
     }
 
+    _renderError() {
+        const { errorCode } = this.props;
+        if (errorCode) {
+            return <Error errorCode={errorCode} />;
+        }
+        return null;
+    }
+
     render() {
         return (
             <Wrapper>
@@ -173,7 +192,8 @@ class DirectionSelectWizard extends Component {
 
 DirectionSelectWizard.propTypes = {
     onDirectionSelected: PropTypes.func,
-    isFetching: PropTypes.bool
+    isFetching: PropTypes.bool,
+    errorCode: PropTypes.string
 }
 
 export default DirectionSelectWizard;
