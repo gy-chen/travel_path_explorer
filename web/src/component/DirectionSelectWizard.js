@@ -5,13 +5,28 @@ import styled from 'styled-components';
 import { Wizard, Steps, Step } from 'react-albus';
 import PlacePickerCard from './PlacePickerCard';
 
-const NextButton = styled.button`
+const Wrapper = styled.div`
+
+    @media (min-width: 768px) {
+        width: 736px;
+        margin-left: auto;
+        margin-right: auto;
+    }
 `;
 
-const DoneButton = styled.button`
+const NextButton = styled.button`
+    margin-top: .60rem;
+    padding: .375rem .75rem;
+    background-color: transparent;
+    font-size: 1rem;
+    line-height: 1.5;
+    font-weight: 500;
 `;
+
+const DoneButton = styled(NextButton)``;
 
 const Loading = styled.p``;
+
 
 /**
  * DirectionSelectWizard
@@ -138,18 +153,20 @@ class DirectionSelectWizard extends Component {
 
     render() {
         return (
-            <Wizard>
-                <Steps>
-                    <Step
-                        id="selectOrigin"
-                        render={this._renderSelectOriginStep}
-                    />
-                    <Step
-                        id="selectDestination"
-                        render={this._renderSelectDestinationStep}
-                    />
-                </Steps>
-            </Wizard>
+            <Wrapper>
+                <Wizard>
+                    <Steps>
+                        <Step
+                            id="selectOrigin"
+                            render={this._renderSelectOriginStep}
+                        />
+                        <Step
+                            id="selectDestination"
+                            render={this._renderSelectDestinationStep}
+                        />
+                    </Steps>
+                </Wizard>
+            </Wrapper>
         );
     }
 }
