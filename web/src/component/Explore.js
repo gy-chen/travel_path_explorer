@@ -35,14 +35,19 @@ class Explore extends Component {
     _renderDirectionSelectWizard() {
         const { currentRoute, currentGeolocation, isFetching, onDirectionSelected, onSearchBoxPlacesChanged, currentError } = this.props;
         if (!currentRoute) {
+
+            const mapOptions = {
+                enableSearchBox: true,
+                onSearchBoxPlacesChanged: onSearchBoxPlacesChanged,
+                zoom: 12,
+                center: currentGeolocation
+            };
+
             return (<DirectionSelectWizard
-                center={currentGeolocation}
-                zoom={12}
                 isFetching={isFetching}
                 onDirectionSelected={onDirectionSelected}
-                enableSearchBox
-                onSearchBoxPlacesChanged={onSearchBoxPlacesChanged}
-                errorCode={currentError} />)
+                errorCode={currentError}
+                mapOptions={mapOptions} />)
         }
         return null;
     }

@@ -92,7 +92,6 @@ export class GoogleMap extends Component {
     }
 }
 
-// TODO add mapOptions property to collection map options instead of speard map options into properties
 GoogleMap.propTypes = {
     apiKey: PropTypes.string,
     onLoaded: PropTypes.func,

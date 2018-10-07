@@ -34,24 +34,24 @@ const Description = styled.p`
 class PlacePickerCard extends Component {
 
     render() {
-        const { title, description, children, ...options } = this.props;
+        const { title, description, children, onPickPlace, mapOptions } = this.props;
 
         return (
             <Card>
                 <Title>{title}</Title>
                 <Description>{description}</Description>
-                <GoogleMapPlacePicker {...options} />
+                <GoogleMapPlacePicker onPickPlace={onPickPlace} mapOptions={mapOptions} />
                 {children}
             </Card>
         );
     }
 }
 
-// TODO add map options properties
 PlacePickerCard.propTypes = {
     title: PropTypes.string,
     description: PropTypes.string,
     onPickPlace: PropTypes.func,
+    mapOptions: PropTypes.object
 };
 
 export default PlacePickerCard;

@@ -145,33 +145,42 @@ storiesOf('GoogleMap', module)
 storiesOf('GoogleMapPlacePicker', module)
   .add('Basic', () => <GoogleMapPlacePicker
     onPickPlace={action('onPickPlace')}
-    center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8} />)
+    mapOptions={{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    }} />);
 
 storiesOf('PlacePickerCard', module)
   .add('Basic', () => <PlacePickerCard
     title="PlacePickerCard"
     description="Please select a place."
     onPickPlace={action('onPickPlace')}
-    center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8}
-  />)
+    mapOptions={{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    }} />);
 
 storiesOf('DirectionSelectWizard', module)
   .add('Basic', () => <DirectionSelectWizard
-    center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8}
     onDirectionSelected={action('onDirectionSelected')}
+    mapOptions={{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    }}
   />)
   .add('Error: Service Unavailable', () => <DirectionSelectWizard
-    center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8}
     errorCode={exploreApi.STATUS_CODE.UNAVAILABLE}
+    mapOptions={{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    }}
   />)
   .add('Error: Not Found', () => <DirectionSelectWizard
-    center={{ lat: -34.397, lng: 150.644 }}
-    zoom={8}
     errorCode={exploreApi.STATUS_CODE.NOT_FOUND}
+    mapOptions={{
+      center: { lat: -34.397, lng: 150.644 },
+      zoom: 8
+    }}
   />);
 
 storiesOf('Step', module)

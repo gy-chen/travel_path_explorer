@@ -58,7 +58,7 @@ class GoogleMapPlacePicker extends Component {
             this._removeMarkers();
             this._pickedPlaces.push(marker);
         });
-        
+
     }
 
     componentDidMount() {
@@ -68,19 +68,20 @@ class GoogleMapPlacePicker extends Component {
     }
 
     render() {
-        const { ...options } = this.props;
+        const { mapOptions } = this.props;
 
         return (
             <GoogleMap
                 ref={this._gmap}
                 onLoaded={this.onMapLoaded}
-                {...options} />
+                {...mapOptions} />
         );
     }
 }
 
 GoogleMapPlacePicker.propTypes = {
-    onPickPlace: PropTypes.func
+    onPickPlace: PropTypes.func,
+    mapOptions: PropTypes.object
 };
 
 export default GoogleMapPlacePicker;

@@ -68,14 +68,14 @@ class DirectionSelectWizard extends Component {
     }
 
     _renderSelectOriginStep({ next }) {
-        const { ...options } = this.props;
+        const { mapOptions } = this.props;
 
         return (
             <PlacePickerCard
                 title="Select Origin"
                 description="Please select origin."
                 onPickPlace={this._onPickOrigin}
-                {...options}>
+                mapOptions={mapOptions}>
                 {this._renderStepButton(() => this._renderSelectOriginStepButton(next))}
             </PlacePickerCard>
         );
@@ -115,14 +115,14 @@ class DirectionSelectWizard extends Component {
     }
 
     _renderSelectDestinationStep() {
-        const { ...options } = this.props;
+        const { mapOptions } = this.props;
 
         return (
             <PlacePickerCard
                 title="Select Destination"
                 description="Please select destination."
                 onPickPlace={this._onPickDestination}
-                {...options}>
+                mapOptions={mapOptions}>
                 {this._renderStepButton(() => this._renderSelectDestinationStepButton())}
             </PlacePickerCard>
         );
@@ -201,7 +201,8 @@ class DirectionSelectWizard extends Component {
 DirectionSelectWizard.propTypes = {
     onDirectionSelected: PropTypes.func,
     isFetching: PropTypes.bool,
-    errorCode: PropTypes.string
+    errorCode: PropTypes.string,
+    mapOptions: PropTypes.object
 }
 
 export default DirectionSelectWizard;
