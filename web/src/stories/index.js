@@ -26,6 +26,7 @@ import { configureStore } from '../store';
 import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 import CenteredGoogleMap from '../container/CenteredGoogleMap';
+import Navbar from '../component/Navbar';
 
 import { explore as exploreApi, geolocation as geolocationApi } from '../service';
 
@@ -395,3 +396,6 @@ storiesOf('Service', module)
 
     return <GeolocationStory />;
   });
+
+storiesOf('Navbar', module)
+  .add('Basic', () => <Navbar />);
