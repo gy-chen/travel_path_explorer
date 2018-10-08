@@ -3,9 +3,7 @@ import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Wrapper = styled.div`
-    height: 100vh;
-    box-sizing: border-box;
-
+    flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;

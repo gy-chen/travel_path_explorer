@@ -7,6 +7,7 @@ import PlacePickerCard from './PlacePickerCard';
 import Error from './Error';
 
 const Wrapper = styled.div`
+    margin-top: 1.25rem;
 
     @media (min-width: 768px) {
         width: 736px;
