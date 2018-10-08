@@ -7,6 +7,13 @@ const Wrapper = styled.div`
     justify-content: space-between;
     background-color: #f8f9fa;
     padding: 1rem .5rem;
+
+    flex-shrink: 0;
+    flex-grow: 0;
+
+    @media print {
+        display: none;
+    }
 `;
 
 const Brand = styled.h5`
