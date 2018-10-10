@@ -1,0 +1,4 @@
+// XXX why can not import plain text file....
+export default `
+hello = 你好
+`

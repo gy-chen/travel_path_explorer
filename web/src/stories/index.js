@@ -7,6 +7,7 @@ import { createDevTools } from 'redux-devtools';
 import LogMonitor from 'redux-devtools-log-monitor';
 import { Provider } from 'react-redux';
 import { BrowserRouter as Router } from 'react-router-dom';
+import { Localized } from 'fluent-react/compat';
 
 import App from '../App';
 import Intro from '../component/Intro';
@@ -27,6 +28,7 @@ import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 import CenteredGoogleMap from '../container/CenteredGoogleMap';
 import Navbar from '../component/Navbar';
+import { AppLocalizationProvider } from '../i18n';
 
 import { explore as exploreApi, geolocation as geolocationApi } from '../service';
 
@@ -399,3 +401,19 @@ storiesOf('Service', module)
 
 storiesOf('Navbar', module)
   .add('Basic', () => <Navbar />);
+
+storiesOf('I18n', module)
+  .add('en', () => (
+    <AppLocalizationProvider userLocales={['en']}>
+      <Localized id="hello">
+        <p>Hello</p>
+      </Localized>
+    </AppLocalizationProvider>
+  ))
+  .add('zh', () => (
+    <AppLocalizationProvider userLocales={['zh']}>
+      <Localized id="hello">
+        <p>Hello</p>
+      </Localized>
+    </AppLocalizationProvider>
+  ));
