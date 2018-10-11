@@ -28,7 +28,7 @@ import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 import CenteredGoogleMap from '../container/CenteredGoogleMap';
 import Navbar from '../component/Navbar';
-import { AppLocalizationProvider } from '../i18n';
+import { AppLocalizationProvider, connectAppLocalizationProvider } from '../i18n';
 
 import { explore as exploreApi, geolocation as geolocationApi } from '../service';
 
@@ -416,4 +416,34 @@ storiesOf('I18n', module)
         <p>Hello</p>
       </Localized>
     </AppLocalizationProvider>
-  ));
+  ))
+  .add('en: using connectAppLocalizationProvider', () => {
+
+    const Hello = () => {
+
+      return (
+        <Localized id="hello">
+          <p>Hello</p>
+        </Localized>
+      );
+    };
+
+    const HelloWithEn = connectAppLocalizationProvider(['en'])(Hello);
+
+    return <HelloWithEn />;
+  })
+  .add('zh: using connectAppLocalizationProvider', () => {
+
+    const Hello = () => {
+
+      return (
+        <Localized id="hello">
+          <p>Hello</p>
+        </Localized>
+      );
+    };
+
+    const HelloWithEn = connectAppLocalizationProvider(['zh'])(Hello);
+
+    return <HelloWithEn />;
+  });

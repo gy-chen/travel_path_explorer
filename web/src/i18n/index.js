@@ -55,3 +55,21 @@ AppLocalizationProvider.propTypes = {
     userLocales: PropTypes.arrayOf(PropTypes.string)
 };
 
+export const connectAppLocalizationProvider = userLocales => {
+
+    const withLocale = Component => {
+
+        const WithLocale = props => {
+
+            return (
+                <AppLocalizationProvider userLocales={userLocales}>
+                    <Component {...props} />
+                </AppLocalizationProvider>
+            );
+        };
+
+        return WithLocale;
+    };
+
+    return withLocale;
+};
