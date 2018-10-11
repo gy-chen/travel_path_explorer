@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { FluentBundle } from 'fluent/compat';
 import { LocalizationProvider } from 'fluent-react/compat';
-import { negotiateLanguages } from 'fluent-langneg/compat';
+import { negotiateLanguages as negotiateLanguagesFlt } from 'fluent-langneg/compat';
 import enMessages from './en.fmt';
 import zhMessages from './zh.fmt';
 
@@ -15,15 +15,19 @@ const MESSAGES_ALL = {
 export const LOCALES = ['en', 'zh'];
 
 export const hasPreferLocales = userLocales => {
-    const matchedLocales = negotiateLanguages(userLocales, LOCALES);
+    const matchedLocales = negotiateLanguagesFlt(userLocales, LOCALES);
     return !_.isEmpty(_.intersection(userLocales, matchedLocales));
 };
 
-export function* generateBundles(userLocales) {
-    const currentLocales = negotiateLanguages(userLocales,
+export const negotiateLanguages = userLocales => {
+    return negotiateLanguagesFlt(userLocales,
         LOCALES,
         { defaultLocale: 'en' }
-    )
+    );
+};
+
+export function* generateBundles(userLocales) {
+    const currentLocales = negotiateLanguages(userLocales);
 
     for (const locale of currentLocales) {
         const bundle = new FluentBundle(locale);

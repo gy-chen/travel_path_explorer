@@ -1,13 +1,13 @@
 import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import Explore from './container/Explore';
 import Intro from './component/Intro';
 import Navbar from './component/Navbar';
 import { currentGeolocation } from './action';
-import { connectAppLocalizationProvider, LOCALES } from './i18n';
+import { connectAppLocalizationProvider, LOCALES, negotiateLanguages } from './i18n';
 
 // [[name, Component], ...]
 // name will be used to construct route, final route url will become /<locale>/<name>
@@ -22,6 +22,11 @@ const Wrapper = styled.div`
   height: 100vh;
   box-sizing: border-box;
 `;
+
+const RedirectToCurrentLocale = () => {
+  const currentLocale = negotiateLanguages(navigator.languages)[0];
+  return <Redirect to={`/${currentLocale}`} />;
+};
 
 /**
  * App
@@ -57,8 +62,7 @@ class App extends Component {
           <Navbar />
           <Switch>
             {this._renderI18nRoutes()}
-            <Route exact path="/explore" component={Explore} />
-            <Route path="/" component={Intro} />
+            <Route exact path="/" component={RedirectToCurrentLocale} />
           </Switch>
         </Wrapper>
       </Router>
