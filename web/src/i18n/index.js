@@ -12,7 +12,7 @@ const MESSAGES_ALL = {
     zh: zhMessages
 };
 
-const LOCALES = ['en', 'zh'];
+export const LOCALES = ['en', 'zh'];
 
 export const hasPreferLocales = userLocales => {
     const matchedLocales = negotiateLanguages(userLocales, LOCALES);
