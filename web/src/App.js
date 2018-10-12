@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import React, { Component } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Switch, Route, Redirect } from 'react-router-dom';
@@ -45,13 +44,15 @@ class App extends Component {
   }
 
   _renderI18nRoutes() {
-    const routes = _.flatMap(LOCALES, locale => {
-      return URLS.map(([name, Component]) => {
+    const routes = [];
+    for (const locale of LOCALES) {
+      for (const [name, Component] of URLS) {
         const path = `/${locale}/${name}`;
-        Component = connectAppLocalizationProvider([locale])(Component);
-        return <Route key={path} exact path={path} component={Component} />
-      });
-    });
+        const WithLocaleComponent = connectAppLocalizationProvider([locale])(Component);
+        routes.push(<Route key={path} exact path={path} component={WithLocaleComponent} />);
+      }
+    };
+
     return routes;
   }
 
@@ -62,7 +63,7 @@ class App extends Component {
           <Navbar />
           <Switch>
             {this._renderI18nRoutes()}
-            <Route exact path="/" component={RedirectToCurrentLocale} />
+            <Route path="/" component={RedirectToCurrentLocale} />
           </Switch>
         </Wrapper>
       </Router>
