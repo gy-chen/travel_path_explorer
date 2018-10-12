@@ -4,8 +4,8 @@ import PropTypes from 'prop-types';
 import { FluentBundle } from 'fluent/compat';
 import { LocalizationProvider } from 'fluent-react/compat';
 import { negotiateLanguages as negotiateLanguagesFlt } from 'fluent-langneg/compat';
-import enMessages from './en.fmt';
-import zhMessages from './zh.fmt';
+import enMessages from './en';
+import zhMessages from './zh';
 
 const MESSAGES_ALL = {
     en: enMessages,
