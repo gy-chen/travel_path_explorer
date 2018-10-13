@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Wizard, Steps, Step } from 'react-albus';
+import { Localized, withLocalization } from 'fluent-react/compat';
 import PlacePickerCard from './PlacePickerCard';
 import Error from './Error';
 
@@ -69,12 +70,12 @@ class DirectionSelectWizard extends Component {
     }
 
     _renderSelectOriginStep({ next }) {
-        const { mapOptions } = this.props;
+        const { getString, mapOptions } = this.props;
 
         return (
             <PlacePickerCard
-                title="Select Origin"
-                description="Please select origin."
+                title={getString("select_origin", null, "Select Origin")}
+                description={getString("please_select_origin", null, "Please select origin")}
                 onPickPlace={this._onPickOrigin}
                 mapOptions={mapOptions}>
                 {this._renderStepButton(() => this._renderSelectOriginStepButton(next))}
@@ -86,7 +87,11 @@ class DirectionSelectWizard extends Component {
         const { isFetching } = this.props;
 
         if (isFetching) {
-            return (<Loading>loading...</Loading>);
+            return (
+                <Localized id="loading">
+                    <Loading>loading...</Loading>
+                </Localized>
+            );
         }
 
         return render();
@@ -99,11 +104,13 @@ class DirectionSelectWizard extends Component {
 
         return (
             <StepAdditionalContentWrapper>
-                <NextButton
-                    disabled={!isUserSelectedOrigin}
-                    onClick={next}>
-                    Next
-                </NextButton>
+                <Localized id="next">
+                    <NextButton
+                        disabled={!isUserSelectedOrigin}
+                        onClick={next}>
+                        Next
+                    </NextButton>
+                </Localized>
                 {this._renderError()}
             </StepAdditionalContentWrapper>
         );
@@ -116,12 +123,12 @@ class DirectionSelectWizard extends Component {
     }
 
     _renderSelectDestinationStep() {
-        const { mapOptions } = this.props;
+        const { getString, mapOptions } = this.props;
 
         return (
             <PlacePickerCard
-                title="Select Destination"
-                description="Please select destination."
+                title={getString("select_destination", null, "Select Destination")}
+                description={getString("please_select_destination", null, "Please select destination.")}
                 onPickPlace={this._onPickDestination}
                 mapOptions={mapOptions}>
                 {this._renderStepButton(() => this._renderSelectDestinationStepButton())}
@@ -134,11 +141,13 @@ class DirectionSelectWizard extends Component {
 
         return (
             <StepAdditionalContentWrapper>
-                <DoneButton
-                    disabled={!isUserSelectedDestination}
-                    onClick={this._onDoneSelection}>
-                    Done
-                </DoneButton>
+                <Localized id="done">
+                    <DoneButton
+                        disabled={!isUserSelectedDestination}
+                        onClick={this._onDoneSelection}>
+                        Done
+                    </DoneButton>
+                </Localized>
                 {this._renderError()}
             </StepAdditionalContentWrapper>
         );
@@ -200,10 +209,11 @@ class DirectionSelectWizard extends Component {
 }
 
 DirectionSelectWizard.propTypes = {
+    getString: PropTypes.func.isRequired,
     onDirectionSelected: PropTypes.func,
     isFetching: PropTypes.bool,
     errorCode: PropTypes.string,
     mapOptions: PropTypes.object
 }
 
-export default DirectionSelectWizard;
+export default withLocalization(DirectionSelectWizard);
