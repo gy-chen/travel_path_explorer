@@ -8,4 +8,7 @@ next = Next
 select_destination = Select Destination
 please_select_destination = Please select destination.
 done = Done
+overview = Overview
+steps = Steps
+parkings = Parkings
 `

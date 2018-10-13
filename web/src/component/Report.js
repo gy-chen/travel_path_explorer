@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { Localized } from 'fluent-react/compat';
 
 import GoogleStaticMap from './GoogleStaticMap';
 import Step from './Step';
@@ -49,15 +50,21 @@ const Report = (props) => {
     return (
         <Wrapper>
             <ContentWrapper>
-                <Title>Overview</Title>
+                <Localized id="overview">
+                    <Title>Overview</Title>
+                </Localized>
                 <GoogleStaticMap path={overview.polyline.points} />
-                <Title>Steps</Title>
+                <Localized id="steps">
+                    <Title>Steps</Title>
+                </Localized>
                 {steps.map((step, index) => (<Step
                     key={index}
                     overview_polyline={overview.polyline.points}
                     {...step}
                 />))}
-                <Title>Parkings</Title>
+                <Localized id="parkings">
+                    <Title>Parkings</Title>
+                </Localized>
                 {parkings.map((parking, index) => (<Parking key={index} {...parking} />))}
             </ContentWrapper>
         </Wrapper>
