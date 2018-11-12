@@ -6,19 +6,19 @@ import Base64Image from './Base64Image';
 
 const Wrapper = styled.div`
     display: flex;
-    margin-left: 8px;
-    margin-right: 8px;
+    justify-content: center;
     padding-top: .75rem;
     padding-bottom: .75rem;
+    margin-left: 8px;
+    margin-right: 8px;
     border-bottom: 1px solid #e0e0e0;
 `;
 
 const Column = styled.div`
-    flex: 0 0 50%;
+    flex: 0 0 33%;
     box-sizing: border-box;
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    margin-left: 4px;
+    margin-right: 4px;
 `;
 
 /**
