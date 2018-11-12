@@ -25,6 +25,7 @@ const ContentWrapper = styled.div`
     justify-content: center;
     align-items: center;
     background-color: white;
+    padding: 12px;
 
     @media screen {
         box-shadow: 0 .5mm 2mm rgba(0,0,0,.3);
