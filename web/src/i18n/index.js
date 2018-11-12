@@ -14,6 +14,8 @@ const MESSAGES_ALL = {
 
 export const LOCALES = ['en', 'zh'];
 
+export const DEFAULT_LOCALE = 'en';
+
 export const hasPreferLocales = userLocales => {
     const matchedLocales = negotiateLanguagesFlt(userLocales, LOCALES);
     return !_.isEmpty(_.intersection(userLocales, matchedLocales));
@@ -22,7 +24,7 @@ export const hasPreferLocales = userLocales => {
 export const negotiateLanguages = userLocales => {
     return negotiateLanguagesFlt(userLocales,
         LOCALES,
-        { defaultLocale: 'en' }
+        { defaultLocale: DEFAULT_LOCALE }
     );
 };
 
@@ -44,11 +46,34 @@ export function* generateBundles(userLocales) {
  */
 export class AppLocalizationProvider extends Component {
 
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            bundles: this._generateBundles()
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        if (prevProps.locale !== this.props.locale) {
+            this.setState({
+                bundles: this._generateBundles()
+            });
+        }
+    }
+
+    _generateBundles() {
+        const { locale } = this.props;
+
+        return generateBundles([locale]);
+    }
+
     render() {
-        const { userLocales, children } = this.props;
+        const { children } = this.props;
+        const { bundles } = this.state;
 
         return (
-            <LocalizationProvider bundles={generateBundles(userLocales)}>
+            <LocalizationProvider bundles={bundles}>
                 {children}
             </LocalizationProvider>
         )
@@ -56,17 +81,17 @@ export class AppLocalizationProvider extends Component {
 }
 
 AppLocalizationProvider.propTypes = {
-    userLocales: PropTypes.arrayOf(PropTypes.string)
+    locale: PropTypes.string
 };
 
-export const connectAppLocalizationProvider = userLocales => {
+export const connectAppLocalizationProvider = locale => {
 
     const withLocale = Component => {
 
         const WithLocale = props => {
 
             return (
-                <AppLocalizationProvider userLocales={userLocales}>
+                <AppLocalizationProvider locale={locale}>
                     <Component {...props} />
                 </AppLocalizationProvider>
             );

@@ -6,14 +6,7 @@ import Explore from './container/Explore';
 import Intro from './component/Intro';
 import Navbar from './component/Navbar';
 import { currentGeolocation } from './action';
-import { connectAppLocalizationProvider, LOCALES, negotiateLanguages } from './i18n';
-
-// [[name, Component], ...]
-// name will be used to construct route, final route url will become /<locale>/<name>
-const URLS = [
-  ['explore', Explore],
-  ['', Intro]
-];
+import { hasPreferLocales, AppLocalizationProvider, negotiateLanguages } from './i18n';
 
 const Wrapper = styled.div`
   display: flex;
@@ -27,6 +20,69 @@ const RedirectToCurrentLocale = () => {
   return <Redirect to={`/${currentLocale}`} />;
 };
 
+class AppRoutes extends Component {
+
+  // [[name, Component], ...]
+  // name will be used to construct route, final route url will become /<locale>/<name>
+  static URLS = [
+    ['explore', Explore],
+    ['', Intro]
+  ]
+
+  constructor(props) {
+    super(props);
+
+    this._renderAppRoutes = this._renderAppRoutes.bind(this);
+    this._hasPreferLocales = this._hasPreferLocales.bind(this);
+
+    this.state = {
+      hasPreferLocales: this._hasPreferLocales()
+    };
+  }
+
+  _hasPreferLocales() {
+    const { match: { params: { locale } } } = this.props;
+    return hasPreferLocales([locale]);
+  }
+
+  _renderAppRoutes() {
+    const { match } = this.props;
+
+    const routes = [];
+    for (const [name, Component] of AppRoutes.URLS) {
+      const path = `${match.url}/${name}`;
+      routes.push(<Route key={path} exact path={path} component={Component} />);
+    }
+    return routes;
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.match.params.locale !== this.props.match.params.locale) {
+      this.setState({
+        hasPreferLocales: this._hasPreferLocales()
+      });
+    }
+  }
+
+  render() {
+    const { hasPreferLocales } = this.state;
+    if (!hasPreferLocales) {
+      return <RedirectToCurrentLocale />;
+    }
+
+    const { match: { params: { locale } } } = this.props;
+
+    return (
+      <AppLocalizationProvider locale={locale}>
+        <Switch>
+          {this._renderAppRoutes()}
+          <Route path="/" component={RedirectToCurrentLocale} />
+        </Switch>
+      </AppLocalizationProvider>
+    );
+  }
+}
+
 /**
  * App
  * 
@@ -38,22 +94,7 @@ class App extends Component {
   componentDidMount() {
     const { initialize } = this.props;
 
-    this._renderI18nRoutes = this._renderI18nRoutes.bind(this);
-
     initialize();
-  }
-
-  _renderI18nRoutes() {
-    const routes = [];
-    for (const locale of LOCALES) {
-      for (const [name, Component] of URLS) {
-        const path = `/${locale}/${name}`;
-        const WithLocaleComponent = connectAppLocalizationProvider([locale])(Component);
-        routes.push(<Route key={path} exact path={path} component={WithLocaleComponent} />);
-      }
-    };
-
-    return routes;
   }
 
   render() {
@@ -61,10 +102,7 @@ class App extends Component {
       <Router>
         <Wrapper>
           <Navbar />
-          <Switch>
-            {this._renderI18nRoutes()}
-            <Route path="/" component={RedirectToCurrentLocale} />
-          </Switch>
+          <Route path="/:locale" component={AppRoutes} />
         </Wrapper>
       </Router>
     );

@@ -404,14 +404,14 @@ storiesOf('Navbar', module)
 
 storiesOf('I18n', module)
   .add('en', () => (
-    <AppLocalizationProvider userLocales={['en']}>
+    <AppLocalizationProvider locale={'en'}>
       <Localized id="hello">
         <p>Hello</p>
       </Localized>
     </AppLocalizationProvider>
   ))
   .add('zh', () => (
-    <AppLocalizationProvider userLocales={['zh']}>
+    <AppLocalizationProvider locale={'zh'}>
       <Localized id="hello">
         <p>Hello</p>
       </Localized>
@@ -428,7 +428,7 @@ storiesOf('I18n', module)
       );
     };
 
-    const HelloWithEn = connectAppLocalizationProvider(['en'])(Hello);
+    const HelloWithEn = connectAppLocalizationProvider('en')(Hello);
 
     return <HelloWithEn />;
   })
@@ -443,7 +443,7 @@ storiesOf('I18n', module)
       );
     };
 
-    const HelloWithEn = connectAppLocalizationProvider(['zh'])(Hello);
+    const HelloWithEn = connectAppLocalizationProvider('zh')(Hello);
 
     return <HelloWithEn />;
   });
