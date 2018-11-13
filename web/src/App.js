@@ -10,8 +10,6 @@ import { currentGeolocation } from './action';
 const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
-  height: 100vh;
-  box-sizing: border-box;
 `;
 
 /**

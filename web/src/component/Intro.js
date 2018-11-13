@@ -5,7 +5,7 @@ import { Link, withRouter } from 'react-router-dom';
 import { Localized } from 'fluent-react/compat';
 
 const Wrapper = styled.div`
-    flex: 1;
+    height: calc(100vh - 58px);
     display: flex;
     flex-direction: column;
     justify-content: center;
