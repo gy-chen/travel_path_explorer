@@ -19,6 +19,9 @@ const Column = styled.div`
     box-sizing: border-box;
     margin-left: 4px;
     margin-right: 4px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 `;
 
 /**
