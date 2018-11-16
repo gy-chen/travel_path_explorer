@@ -6,6 +6,7 @@ import Navbar from './component/Navbar';
 import RedirectToCurrentLocale from './component/RedirectToCurrentLocale';
 import AppRoutes from './AppRoutes';
 import { currentGeolocation } from './action';
+import MatomoTracker from './component/MatomoTracker';
 
 const Wrapper = styled.div`
   display: flex;
@@ -35,6 +36,7 @@ class App extends Component {
             <Route path="/:locale" component={AppRoutes} />
             <Route path="/" component={RedirectToCurrentLocale} />
           </Switch>
+          <MatomoTracker host={process.env.REACT_APP_TRACKER_SERVER} />
         </Wrapper>
       </Router>
     );
