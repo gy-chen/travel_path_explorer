@@ -4,4 +4,5 @@ flask
 flask-cors
 Flask-SQLAlchemy
 Flask-Migrate
+netaddr
 gunicorn
