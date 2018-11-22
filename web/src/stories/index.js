@@ -28,6 +28,7 @@ import { route, currentGeolocation } from '../action';
 import ExploreContainer from '../container/Explore';
 import CenteredGoogleMap from '../container/CenteredGoogleMap';
 import Navbar from '../component/Navbar';
+import PrintButton from '../component/PrintButton';
 import { AppLocalizationProvider, connectAppLocalizationProvider } from '../i18n';
 
 import { explore as exploreApi, geolocation as geolocationApi } from '../service';
@@ -447,3 +448,6 @@ storiesOf('I18n', module)
 
     return <HelloWithEn />;
   });
+
+storiesOf('PrintButton', module)
+  .add('Basic', () => <PrintButton />);

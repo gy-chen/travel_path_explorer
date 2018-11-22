@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Wizard, Steps, Step } from 'react-albus';
 import { Localized, withLocalization } from 'fluent-react/compat';
+import { Button } from './mixin';
 import PlacePickerCard from './PlacePickerCard';
 import Error from './Error';
 
@@ -21,15 +22,9 @@ const StepAdditionalContentWrapper = styled.div`
     margin-top: .60rem;
 `;
 
-const NextButton = styled.button`
-    padding: .375rem .75rem;
-    background-color: transparent;
-    font-size: 1rem;
-    line-height: 1.5;
-    font-weight: 500;
-`;
+const NextButton = styled(Button)``;
 
-const DoneButton = styled(NextButton)``;
+const DoneButton = styled(Button)``;
 
 const ErrorWrapper = styled.div`
     margin-top: .60rem;
