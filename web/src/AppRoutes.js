@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+import Navbar from './container/Navbar';
 import Explore from './container/Explore';
 import Intro from './component/Intro';
 import RedirectToCurrentLocale from './component/RedirectToCurrentLocale';
@@ -60,10 +61,13 @@ class AppRoutes extends Component {
 
         return (
             <AppLocalizationProvider locale={locale}>
-                <Switch>
-                    {this._renderAppRoutes()}
-                    <Route path="/" component={RedirectToCurrentLocale} />
-                </Switch>
+                <div>
+                    <Navbar />
+                    <Switch>
+                        {this._renderAppRoutes()}
+                        <Route path="/" component={RedirectToCurrentLocale} />
+                    </Switch>
+                </div>
             </AppLocalizationProvider>
         );
     }
