@@ -11,4 +11,5 @@ done = 完成
 overview = 路線圖
 steps = 路線詳細資訊
 parkings = 停車場
+print = 列印
 `

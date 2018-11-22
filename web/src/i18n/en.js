@@ -11,4 +11,5 @@ done = Done
 overview = Overview
 steps = Steps
 parkings = Parkings
+print = Print
 `
