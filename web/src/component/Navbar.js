@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { Github } from 'styled-icons/fa-brands/Github';
+import PrintButton from './PrintButton';
 
 const Wrapper = styled.div`
     display: flex;
@@ -47,11 +49,33 @@ const NavLink = styled.a`
 `;
 
 class Navbar extends Component {
+
+    constructor(props) {
+        super(props);
+
+        this._renderPrintButton = this._renderPrintButton.bind(this);
+    }
+
+    _renderPrintButton() {
+        const { displayPrintButton } = this.props;
+
+        if (displayPrintButton) {
+            return (
+                <NavItem>
+                    <PrintButton />
+                </NavItem>
+            );
+        }
+
+        return null;
+    }
+
     render() {
         return (
             <Wrapper>
                 <Brand>TravelPathExplorer</Brand>
                 <Nav>
+                    {this._renderPrintButton()}
                     <NavItem>
                         <NavLink href="https:///www.github.com/gy-chen/travel_path_explorer">
                             <Github size={24} />
@@ -62,5 +86,9 @@ class Navbar extends Component {
         );
     }
 }
+
+Navbar.propTypes = {
+    displayPrintButton: PropTypes.bool
+};
 
 export default Navbar;

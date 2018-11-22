@@ -401,7 +401,8 @@ storiesOf('Service', module)
   });
 
 storiesOf('Navbar', module)
-  .add('Basic', () => <Navbar />);
+  .add('Basic', () => <Navbar />)
+  .add('Display PrintButton', () => <Navbar displayPrintButton />);
 
 storiesOf('I18n', module)
   .add('en', () => (
@@ -450,4 +451,5 @@ storiesOf('I18n', module)
   });
 
 storiesOf('PrintButton', module)
-  .add('Basic', () => <PrintButton />);
+  .add('Basic', () => <PrintButton />)
+  .add('Display none', () => <PrintButton display={false} />)

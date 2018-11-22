@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { connect } from 'react-redux';
-import Navbar from './component/Navbar';
+import Navbar from './container/Navbar';
 import RedirectToCurrentLocale from './component/RedirectToCurrentLocale';
 import AppRoutes from './AppRoutes';
 import { currentGeolocation } from './action';
