@@ -1,0 +1,7 @@
+.idea
+.vscode
+.git
+.env
+*.db
+*.egg-info
+web
