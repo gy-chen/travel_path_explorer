@@ -9,5 +9,6 @@ RUN pip3 install --no-cache-dir -q .
 
 RUN adduser -D www-data
 USER www-data
+WORKDIR /opt/webapp
 
 CMD gunicorn --bind 0.0.0.0:4413 travel_path_explorer.web:app
