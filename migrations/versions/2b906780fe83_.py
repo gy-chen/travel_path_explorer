@@ -30,7 +30,16 @@ def upgrade():
                                         sa.PrimaryKeyConstraint('network')
                                         )
     # ### end Alembic commands ###
-    op.bulk_insert(geolocation_table, list(geolocation_data()))
+    geo_gen = geolocation_data()
+    while True:
+        bulk = []
+        try:
+            for _ in range(10000):
+                bulk.append(next(geo_gen))
+        except StopIteration:
+            break
+        finally:
+            op.bulk_insert(geolocation_table, bulk)
 
 
 def geolocation_data():
