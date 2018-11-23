@@ -11,7 +11,10 @@ def geolocation():
 
     return JSON data that in format { "lat": ..., "lng": ...}
     """
-    return jsonify(geolocation.find_geolocation(request.remote_addr))
+    remote_addr = request.headers.get('X-Real-IP') or\
+        request.headers.get('X-Forwarded-For') or\
+        request.remote_addr
+    return jsonify(geolocation.find_geolocation(remote_addr))
 
 
 class GeoLocation:
