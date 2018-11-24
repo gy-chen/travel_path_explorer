@@ -2,11 +2,13 @@
   "name": "web",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://gy-chen.github.io/travel_path_explorer",
   "dependencies": {
     "apisauce": "^0.16.0",
     "fluent": "^0.8.1",
     "fluent-langneg": "^0.1.0",
     "fluent-react": "^0.8.1",
+    "gh-pages": "^2.0.1",
     "load-script": "^1.0.0",
     "react": "^16.5.1",
     "react-albus": "^2.0.0",
@@ -28,7 +30,9 @@
     "storybook": "start-storybook -p 9009 -s public",
     "build-storybook": "build-storybook -s public",
     "prettier": "prettier",
-    "prettier-apply": "prettier --write \"src/**/*.js\""
+    "prettier-apply": "prettier --write \"src/**/*.js\"",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@storybook/addon-actions": "^3.4.10",
