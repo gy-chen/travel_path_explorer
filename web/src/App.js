@@ -21,7 +21,7 @@ class App extends Component {
 
   render() {
     return (
-      <Router>
+      <Router basename={process.env.REACT_APP_ROUTER_BASENAME}>
         <div>
           <Switch>
             <Route path="/:locale" component={AppRoutes} />
