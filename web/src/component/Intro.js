@@ -1,40 +1,39 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import styled from 'styled-components';
-import { Link, withRouter } from 'react-router-dom';
-import { Localized } from 'fluent-react/compat';
+import React from "react";
+import PropTypes from "prop-types";
+import styled from "styled-components";
+import { Link, withRouter } from "react-router-dom";
+import { Localized } from "fluent-react/compat";
 
 const Wrapper = styled.div`
-    height: calc(100vh - 58px);
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  height: calc(100vh - 58px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
-const Content = styled.div`
-`;
+const Content = styled.div``;
 
 /**
  * Intro page
  */
 const Intro = props => {
-    const { match } = props;
+  const { match } = props;
 
-    return (
-        <Wrapper>
-            <Content>
-                <h1>Intro</h1>
-                <Localized id="start_explore">
-                    <Link to={`${match.url}/explore`}>start explore</Link>
-                </Localized>
-            </Content>
-        </Wrapper >
-    );
+  return (
+    <Wrapper>
+      <Content>
+        <h1>Intro</h1>
+        <Localized id="start_explore">
+          <Link to={`${match.url}/explore`}>start explore</Link>
+        </Localized>
+      </Content>
+    </Wrapper>
+  );
 };
 
 Intro.propTypes = {
-    match: PropTypes.object
+  match: PropTypes.object
 };
 
 export default withRouter(Intro);

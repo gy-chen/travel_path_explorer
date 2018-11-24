@@ -1,9 +1,8 @@
-import React from 'react';
-import sampleData from './sample.json';
+import React from "react";
+import sampleData from "./sample.json";
 
 export const withRouteData = Component => {
+  const WithRouteData = props => <Component {...sampleData} {...props} />;
 
-    const WithRouteData = props => (<Component {...sampleData} {...props} />)
-
-    return WithRouteData;
+  return WithRouteData;
 };

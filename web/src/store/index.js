@@ -1,22 +1,23 @@
-import { createStore, applyMiddleware, compose } from 'redux';
-import { createEpicMiddleware } from 'redux-observable';
-import rootReducer from '../reducer';
-import rootEpic from '../epic';
+import { createStore, applyMiddleware, compose } from "redux";
+import { createEpicMiddleware } from "redux-observable";
+import rootReducer from "../reducer";
+import rootEpic from "../epic";
 
 export const configureStore = (enhancer = undefined) => {
+  const epicMiddleware = createEpicMiddleware();
 
-    const epicMiddleware = createEpicMiddleware();
-
-    const finalStoreEnhancer = enhancer ? compose(
+  const finalStoreEnhancer = enhancer
+    ? compose(
         applyMiddleware(epicMiddleware),
         enhancer
-    ) : applyMiddleware(epicMiddleware);
+      )
+    : applyMiddleware(epicMiddleware);
 
-    const store = createStore(rootReducer, finalStoreEnhancer);
+  const store = createStore(rootReducer, finalStoreEnhancer);
 
-    epicMiddleware.run(rootEpic);
+  epicMiddleware.run(rootEpic);
 
-    return store;
+  return store;
 };
 
 const store = configureStore();

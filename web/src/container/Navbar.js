@@ -1,8 +1,8 @@
-import { connect } from 'react-redux';
-import Navbar from '../component/Navbar';
+import { connect } from "react-redux";
+import Navbar from "../component/Navbar";
 
 const mapStateToProps = state => ({
-    displayPrintButton: !!state.route.currentRoute
+  displayPrintButton: !!state.route.currentRoute
 });
 
 export default connect(mapStateToProps)(Navbar);
