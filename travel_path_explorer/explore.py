@@ -8,7 +8,7 @@ except ModuleNotFoundError:
     from exception import NotFoundError
 
 
-def find_route(origin, destination):
+def find_route(origin, destination, find_steps_function=None):
     """Find route from origin to destination
 
     Route contains information about:
@@ -26,9 +26,12 @@ def find_route(origin, destination):
 
     :param origin: (lat, lot) coordinate of origin
     :param destination: (lat, lot) coordinate of destination
+    :params find_steps_function: function for custom how to find steps, the function must accept
+        arguments origin and destinaion.
     :return: dict
     """
-    steps = find_steps(origin, destination)
+    steps = find_steps(origin, destination) if find_steps_function is None else find_steps_function(
+        origin, destination)
     parkings = find_parkings(steps[-1]['location']) if steps else None
 
     result = {
@@ -60,7 +63,7 @@ def find_overview(origin, destination):
     return overview
 
 
-def find_steps(origin, destination):
+def find_steps(origin, destination, find_image_function=None):
     """Find steps of the route from the origin to the destination
 
     steps: list of step info
@@ -71,6 +74,8 @@ def find_steps(origin, destination):
 
     :param origin:
     :param destination:
+    :param find_image_function: function that can custom how to find image.
+        the function must accepct argument step.
     :return: list
     """
     directions_result = gmaps.directions(origin, destination)
@@ -81,7 +86,7 @@ def find_steps(origin, destination):
         "html_instructions": step["html_instructions"],
         "distance": step["distance"]["text"],
         "location": step.get("start_location", step.get("end_location")),
-        "image": find_image(step)
+        "image": find_image(step) if find_image_function is None else find_image_function(step)
     } for step in directions_result['legs'][0]['steps']]
     return steps
 
