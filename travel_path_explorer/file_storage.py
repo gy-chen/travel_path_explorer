@@ -1,13 +1,21 @@
 import os
 import hashlib
 from flask import current_app, Blueprint, send_from_directory
+from werkzeug.local import LocalProxy
+
+
+def get_file_storage():
+    return current_app.extensions['file_storage']
+
+
+file_storage = LocalProxy(get_file_storage)
 
 file_storage_bg = Blueprint('file_storage', __name__)
 
 
 @file_storage_bg.route('/<name>')
 def get(name):
-    return send_from_directory(current_app.extensions['file_storage'].storage_path, name)
+    return send_from_directory(file_storage.storage_path, name)
 
 
 class FileStorage:
