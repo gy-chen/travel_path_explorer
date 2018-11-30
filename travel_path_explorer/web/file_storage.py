@@ -35,10 +35,14 @@ class FileStorage:
     def init_app(self, app):
         app.config.setdefault('FILE_STORAGE_PATH', '')
         app.extensions['file_storage'] = self
+        os.makedirs(self._build_storage_path(app), exist_ok=True)
 
     @property
     def storage_path(self):
-        return os.path.join(current_app.instance_path, current_app.config['FILE_STORAGE_PATH'])
+        return self._build_storage_path(current_app)
+
+    def _build_storage_path(self, app):
+        return os.path.join(app.instance_path, app.config['FILE_STORAGE_PATH'])
 
     def put(self, content, name=None):
         if name is None:
@@ -49,3 +53,4 @@ class FileStorage:
         with open(path, 'wb') as f:
             current_app.logger.info('write to {}'.format(path))
             f.write(content)
+        return name
