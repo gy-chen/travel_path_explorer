@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import styled from "styled-components";
 import GoogleStaticMap from "./GoogleStaticMap";
-import Base64Image from "./Base64Image";
+import Image from './Image';
 
 const Wrapper = styled.div`
   display: flex;
@@ -60,7 +60,7 @@ const Step = props => {
         />
       </Column>
       <Column>
-        <Base64Image content={image} />
+        <Image src={image} />
       </Column>
     </Wrapper>
   );

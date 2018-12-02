@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import PropTypes from "prop-types";
 import GoogleStaticMap from "./GoogleStaticMap";
-import Base64Image from "./Base64Image";
+import Image from './Image';
 
 const Wrapper = styled.div`
   display: flex;
@@ -40,7 +40,7 @@ const Parking = props => {
         <GoogleStaticMap center={location} markers={[location]} zoom={16} />
       </Column>
       <Column>
-        <Base64Image content={image} />
+        <Image src={image} />
       </Column>
     </Wrapper>
   );
