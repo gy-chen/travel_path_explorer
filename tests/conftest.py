@@ -1,4 +1,5 @@
 import pytest
+import pickle
 from travel_path_explorer.web import create_app
 
 
@@ -15,3 +16,9 @@ def app(tmpdir):
 @pytest.fixture
 def client(app):
     return app.test_client()
+
+
+@pytest.fixture
+def route_sample_data():
+    with open('./data/route_sample.pickle', 'rb') as f:
+        return pickle.load(f)
