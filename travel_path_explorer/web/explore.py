@@ -1,5 +1,5 @@
 from functools import partial
-from flask import Blueprint, request, jsonify, url_for
+from flask import Blueprint, request, jsonify, url_for, current_app
 from . import file_storage
 from .. import explore
 from ..exception import TransportError, ApiError, NotFoundError
@@ -26,7 +26,8 @@ def explore_():
     }
 
     try:
-        route = find_route(origin, destination)
+        route = find_route(origin, destination, parkings_max_results=current_app.config.get(
+            'EXPLORE_PARKINGS_MAX_RESULTS'))
         result["status"] = "OK"
         result["route"] = route
     except NotFoundError:
