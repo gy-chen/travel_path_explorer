@@ -34,3 +34,11 @@ def test_route_extract_image(route_sample_data):
             get_image, route['parkings'])),
     ):
         assert hash(img) == img_hash
+
+
+def test_route_parkings_max_results(route_sample_data):
+    route = explore.find_route(
+        'TaichungTrainStation', 'TaichungPark', parkings_max_results=5)
+    assert len(route['parkings']) <= 5
+    for p1, p2 in zip(route, route_sample_data):
+        assert p1 == p2

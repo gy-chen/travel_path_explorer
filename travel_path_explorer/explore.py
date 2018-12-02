@@ -11,7 +11,7 @@ except ModuleNotFoundError:
 def _default_extract_image(c): return c
 
 
-def find_route(origin, destination, extract_image=None):
+def find_route(origin, destination, extract_image=None, parkings_max_results=None):
     """Find route from origin to destination
 
     Route contains information about:
@@ -39,7 +39,7 @@ def find_route(origin, destination, extract_image=None):
     result = {
         'overview': find_overview(origin, destination),
         'steps': steps,
-        'parkings': parkings
+        'parkings': parkings[:parkings_max_results]
     }
 
     return result
