@@ -29,8 +29,7 @@ def find_route(origin, destination, extract_image=None):
 
     :param origin: (lat, lot) coordinate of origin
     :param destination: (lat, lot) coordinate of destination
-    :params find_steps_function: function for custom how to find steps, the function must accept
-        arguments origin and destinaion.
+    :param extract_image: function for modify image content. do nothing by default.
     :return: dict
     """
     steps = find_steps(origin, destination, extract_image=extract_image)
@@ -77,8 +76,7 @@ def find_steps(origin, destination, extract_image=None):
 
     :param origin:
     :param destination:
-    :param find_image_function: function that can custom how to find image.
-        the function must accepct argument step.
+    :param extract_image: function for modify image content. do nothing by default.
     :return: list
     """
     try:
@@ -119,6 +117,7 @@ def find_parkings(destination, extract_image=None):
     }
 
     :param destination: dict that contains lat and lng data.
+    :param extract_image: function for modify image content. do nothing by default.
     :return: list that contains dict of parking info
     """
     extract_image = _default_extract_image if extract_image is None else extract_image
