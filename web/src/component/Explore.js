@@ -74,13 +74,11 @@ class Explore extends Component {
 Explore.propTypes = {
   isFetching: PropTypes.bool,
   currentRoute: PropTypes.shape({
-    overview: PropTypes.arrayOf(
-      PropTypes.shape({
-        polyline: PropTypes.shape({
-          points: PropTypes.string
-        })
+    overview: PropTypes.shape({
+      polyline: PropTypes.shape({
+        points: PropTypes.string
       })
-    ),
+    }),
     steps: PropTypes.arrayOf(
       PropTypes.shape({
         html_instructions: PropTypes.string,
