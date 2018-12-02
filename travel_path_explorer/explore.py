@@ -8,7 +8,10 @@ except ModuleNotFoundError:
     from exception import NotFoundError
 
 
-def find_route(origin, destination, find_steps_function=None):
+def _default_extract_image(c): return c
+
+
+def find_route(origin, destination, extract_image=None):
     """Find route from origin to destination
 
     Route contains information about:
@@ -30,9 +33,9 @@ def find_route(origin, destination, find_steps_function=None):
         arguments origin and destinaion.
     :return: dict
     """
-    steps = find_steps(origin, destination) if find_steps_function is None else find_steps_function(
-        origin, destination)
-    parkings = find_parkings(steps[-1]['location']) if steps else None
+    steps = find_steps(origin, destination, extract_image=extract_image)
+    parkings = find_parkings(
+        steps[-1]['location'], extract_image=extract_image)
 
     result = {
         'overview': find_overview(origin, destination),
@@ -63,7 +66,7 @@ def find_overview(origin, destination):
     return overview
 
 
-def find_steps(origin, destination, find_image_function=None):
+def find_steps(origin, destination, extract_image=None):
     """Find steps of the route from the origin to the destination
 
     steps: list of step info
@@ -86,20 +89,21 @@ def find_steps(origin, destination, find_image_function=None):
         "html_instructions": step["html_instructions"],
         "distance": step["distance"]["text"],
         "location": step.get("start_location", step.get("end_location")),
-        "image": find_image(step) if find_image_function is None else find_image_function(step)
+        "image": find_image(step, extract_image=extract_image)
     } for step in directions_result['legs'][0]['steps']]
     return steps
 
 
-def find_image(step):
+def find_image(step, extract_image=None):
+    extract_image = _default_extract_image if extract_image is None else extract_image
     origin, destination = step.get("start_location"), step.get("end_location")
     if not origin or not destination:
         return None
     heading = calculate_heading(origin, destination)
-    return gmaps.streetview(destination, size="800x600", heading=heading, fov=120)
+    return extract_image(gmaps.streetview(destination, size="800x600", heading=heading, fov=120))
 
 
-def find_parkings(destination):
+def find_parkings(destination, extract_image=None):
     """Find nearby parkings of the destination
 
     Parking info:
@@ -112,11 +116,12 @@ def find_parkings(destination):
     :param destination: dict that contains lat and lng data.
     :return: list that contains dict of parking info
     """
+    extract_image = _default_extract_image if extract_image is None else extract_image
     parkings = gmaps.places_nearby(
         destination, rank_by="distance", type="parking")
 
     return [{
         'location': parking['geometry']['location'],
-        'image': gmaps.streetview(parking['geometry']['location'], size="800x600"),
+        'image': extract_image(gmaps.streetview(parking['geometry']['location'], size="800x600")),
         'name': parking['name']
     } for parking in parkings['results']]
