@@ -7,7 +7,7 @@ const PrintButton = withLocalization(styled(Button).attrs({
   onClick: () => window.print
 })`
     background-color: white;
-    display: ${props => (props.display ? "block" : "none")};
+    display: ${props => (props.show ? "block" : "none")};
     
     &:after {
         content: '${props => props.getString("print", null, "Print")}'
@@ -15,11 +15,11 @@ const PrintButton = withLocalization(styled(Button).attrs({
 `);
 
 PrintButton.defaultProps = {
-  display: true
+  show: true
 };
 
 PrintButton.propTypes = {
-  display: PropTypes.bool
+  show: PropTypes.bool
 };
 
 export default PrintButton;

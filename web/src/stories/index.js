@@ -492,4 +492,4 @@ storiesOf("I18n", module)
 
 storiesOf("PrintButton", module)
   .add("Basic", () => <PrintButton />)
-  .add("Display none", () => <PrintButton display={false} />);
+  .add("Display none", () => <PrintButton show={false} />);
