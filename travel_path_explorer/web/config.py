@@ -4,14 +4,14 @@ import os
 def convert_to_float(value, default=None):
     try:
         return float(value)
-    except ValueError:
+    except (ValueError, TypeError):
         return None
 
 
 def convert_to_int(value, default=None):
     try:
         return int(value)
-    except ValueError:
+    except (ValueError, TypeError):
         return None
 
 
