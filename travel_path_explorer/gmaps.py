@@ -1,10 +1,7 @@
 import functools
 import os
 import googlemaps
-import dotenv
 from googlemaps import convert, client
-
-dotenv.load_dotenv(dotenv.find_dotenv())
 
 gmaps = googlemaps.Client(key=os.getenv("GMAPS_API_KEY"))
 gmaps.directions = functools.lru_cache(maxsize=1)(gmaps.directions)
