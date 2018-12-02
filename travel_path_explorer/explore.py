@@ -1,11 +1,11 @@
 try:
     from .gmaps import gmaps
     from .helper import calculate_heading
-    from .exception import NotFoundError
+    from .exception import NotFoundError, ApiError
 except ModuleNotFoundError:
     from gmaps import gmaps
     from helper import calculate_heading
-    from exception import NotFoundError
+    from exception import NotFoundError, ApiError
 
 
 def _default_extract_image(c): return c
@@ -81,9 +81,14 @@ def find_steps(origin, destination, extract_image=None):
         the function must accepct argument step.
     :return: list
     """
-    directions_result = gmaps.directions(origin, destination)
-    if not directions_result:
-        raise NotFoundError()
+    try:
+        directions_result = gmaps.directions(origin, destination)
+        if not directions_result:
+            raise NotFoundError()
+    except ApiError as e:
+        if e.status == "NOT_FOUND":
+            raise NotFoundError()
+        raise e
     directions_result = directions_result[0]
     steps = [{
         "html_instructions": step["html_instructions"],
