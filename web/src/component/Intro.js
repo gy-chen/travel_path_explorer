@@ -55,6 +55,16 @@ const Wrapper = styled.div`
   }
 `;
 
+const StartExploreLink = styled(Link)`
+  color: white;
+  text-transform: uppercase;
+  border: 2px solid;
+  padding: 0.375rem 0.75rem;
+  background-color: transparent;
+  font-size: 1rem;
+  line-height: 1.5;
+  font-weight: 500;
+`;
 
 /**
  * Intro page
@@ -65,7 +75,9 @@ const Intro = props => {
   return (
     <Wrapper>
       <Localized id="start_explore">
-        <Link to={`${match.url}/explore`}>start explore</Link>
+        <StartExploreLink to={`${match.url}/explore`}>
+          Explore
+        </StartExploreLink>
       </Localized>
     </Wrapper>
   );
